@@ -89,9 +89,9 @@ export default function Sidebar({
         <Image
           className="w-auto rounded"
           src={cookbook.banner_url}
-          alt="Your Company"
-          width={0}
-          height={0}
+          alt={cookbook.name}
+          width={300}
+          height={300}
         />
       </div>
       <nav className="scrollbar flex flex-1 flex-col px-4 pb-4 overflow-y-auto overflow-x-hidden">
