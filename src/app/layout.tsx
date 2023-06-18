@@ -19,6 +19,8 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: any;
 }) {
+  let content = <></>;
+
   try {
     const cookbooks = await HttpService.get(Routes.COOKBOOK_GET_ALL, {
       game: "60ae73e09113a40015ca98e3",
@@ -28,26 +30,24 @@ export default async function RootLayout({
     );
     useStore.setState({ cookbooks, guides });
 
-    return (
-      <html lang="en">
-        <body
-          className={`${inter.className} bg-gray-900 flex overflow-hidden h-screen`}
-        >
-          <Sidebar cookbook={cookbooks[0]} guides={guides} />
-          {children}
-        </body>
-      </html>
+    content = (
+      <>
+        <Sidebar cookbook={cookbooks[0]} guides={guides} />
+        {children}
+      </>
     );
   } catch (err) {
     console.log(err);
-    return (
-      <html lang="en">
-        <body
-          className={`${inter.className} bg-gray-900 flex overflow-hidden h-screen`}
-        >
-          Error
-        </body>
-      </html>
-    );
+    content = <>Error</>;
   }
+
+  return (
+    <html lang="en">
+      <body
+        className={`${inter.className} bg-gray-900 flex overflow-hidden h-screen`}
+      >
+        {content}
+      </body>
+    </html>
+  );
 }
