@@ -10,9 +10,9 @@ const SectionList = ({ cookbook, guide, sections }: any) => {
     return (
       <li key={section.title}>
         <Link
-          href={`/${cookbook.name}/${titleToUrl(guide.title)}/${titleToUrl(
-            section.title
-          )}`}
+          href={`/${titleToUrl(cookbook.name)}/${titleToUrl(
+            guide.title
+          )}/${titleToUrl(section.title)}`}
           className={classNames(
             "text-indigo-200 hover:text-white hover:bg-teal-500",
             "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
