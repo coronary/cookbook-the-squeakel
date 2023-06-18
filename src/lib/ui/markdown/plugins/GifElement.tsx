@@ -7,20 +7,16 @@ import Image from "next/image";
 function useOnScreen(ref) {
   const [isIntersecting, setIntersecting] = React.useState(false);
 
-  const observer = React.useMemo(
-    () =>
-      new IntersectionObserver(([entry]) =>
-        setIntersecting(entry.isIntersecting)
-      ),
-    []
-  );
-
   React.useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) =>
+      setIntersecting(entry.isIntersecting)
+    );
+
     observer.observe(ref.current);
     return () => {
       observer.disconnect();
     };
-  }, [observer, ref]);
+  }, [ref]);
 
   return isIntersecting;
 }
@@ -32,7 +28,7 @@ export const GifElement = ({ value, src }) => {
   let gifElement;
 
   if (value.includes("gfycat")) {
-    const { thumbnail, gif } = gfyTransform(src);
+    const { thumbnail } = gfyTransform(src);
 
     gifElement = (
       <video autoPlay loop muted disableRemotePlayback className={"rounded"}>
