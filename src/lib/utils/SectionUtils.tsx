@@ -7,7 +7,7 @@ export function titleToUrl(title: string): string {
 
 export function itemFromUrl(items: any, url: string) {
   for (const item of items) {
-    const title = titleToUrl(item.title);
+    const title = titleToUrl(item.title ?? item.name);
     if (title === url) return item;
   }
 }

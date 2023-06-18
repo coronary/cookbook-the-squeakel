@@ -3,6 +3,7 @@ import Image from "next/image";
 import Logo from "../../../app/logo.svg";
 import { MediaRoutes } from "@/lib/constants/ApiRoutes";
 import Link from "next/link";
+import { titleToUrl } from "@/lib/utils/SectionUtils";
 
 const CookbookList = ({ cookbooks }: { cookbooks: Cookbook[] }) => {
   return (
@@ -10,8 +11,8 @@ const CookbookList = ({ cookbooks }: { cookbooks: Cookbook[] }) => {
       {cookbooks.map((cookbook: Cookbook) => {
         const { character, name } = cookbook;
         return (
-          <li key={cookbook.name}>
-            <Link href={`/${name}`}>
+          <li key={name}>
+            <Link href={`/${titleToUrl(name)}`}>
               <Image
                 className="w-10 h-10 my-4"
                 src={MediaRoutes.CHARACTER_ICON("melee", character.name)}
