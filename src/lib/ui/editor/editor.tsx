@@ -4,7 +4,6 @@ import React, { useCallback, useEffect } from "react";
 import { EditorState } from "@codemirror/state";
 import useCodeMirror from "./useCodemirror";
 
-import styles from "./editor.module.css";
 import { initialDoc } from "./initialDoc";
 
 interface EditorProps {}

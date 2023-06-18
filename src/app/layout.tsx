@@ -1,4 +1,4 @@
-import Sidebar from "@/lib/ui/sidebar/Sidebar";
+import Sidebar from "@/lib/modules/sidebar/Sidebar";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import HttpService from "@/lib/utils/HttpService";
@@ -19,17 +19,35 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: any;
 }) {
-  const cookbooks = await HttpService.get(Routes.COOKBOOK_GET_ALL);
-  useStore.setState({ cookbooks });
+  try {
+    const cookbooks = await HttpService.get(Routes.COOKBOOK_GET_ALL, {
+      game: "60ae73e09113a40015ca98e3",
+    });
+    const guides = await HttpService.get(
+      Routes.GUIDES_GET_ALL(cookbooks[0]?._id)
+    );
+    useStore.setState({ cookbooks, guides });
 
-  return (
-    <html lang="en">
-      <body
-        className={`${inter.className} bg-gray-900 flex overflow-hidden h-screen`}
-      >
-        <Sidebar cookbooks={cookbooks} />
-        {children}
-      </body>
-    </html>
-  );
+    return (
+      <html lang="en">
+        <body
+          className={`${inter.className} bg-gray-900 flex overflow-hidden h-screen`}
+        >
+          <Sidebar cookbook={cookbooks[0]} guides={guides} />
+          {children}
+        </body>
+      </html>
+    );
+  } catch (err) {
+    console.log(err);
+    return (
+      <html lang="en">
+        <body
+          className={`${inter.className} bg-gray-900 flex overflow-hidden h-screen`}
+        >
+          Error
+        </body>
+      </html>
+    );
+  }
 }

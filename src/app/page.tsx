@@ -1,15 +1,17 @@
 import { create } from "zustand";
 import { Editor } from "../lib/ui/editor/editor";
-import styles from "./page.module.css";
+import { Markdown } from "@/lib/ui/markdown/Markdown";
 
 export const useStore = create(() => ({
   cookbooks: [],
+  guides: [],
 }));
 
 export default function Home() {
   return (
     <main className={"flex-1 overflow-y-auto"}>
-      <Editor />
+      {/* <Editor /> */}
+      <Markdown />
     </main>
   );
 }

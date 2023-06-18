@@ -8,7 +8,6 @@ import { EditorView, keymap } from "@codemirror/view";
 import { defaultKeymap } from "@codemirror/commands";
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { languages } from "@codemirror/language-data";
-import { oneDark } from "@codemirror/theme-one-dark";
 import { cookbookDark } from "./EditorTheme";
 
 interface Props {

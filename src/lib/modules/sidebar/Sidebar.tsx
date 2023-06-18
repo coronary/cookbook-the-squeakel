@@ -21,7 +21,7 @@ function classNames(...classes: string[]) {
 const GuideList = ({ guides }: any) => {
   return guides.map((guide: any) => {
     return (
-      <li key={guide.name}>
+      <li key={guide.title}>
         <a
           href={"#"}
           className={classNames(
@@ -40,8 +40,8 @@ const GuideList = ({ guides }: any) => {
             )}
             aria-hidden="true"
           />
-          {guide.name}
-          {guide.count ? (
+          {guide.title}
+          {guide.sections.lenght ? (
             <span
               className="ml-auto w-9 min-w-max whitespace-nowrap rounded-full bg-indigo-600 px-2.5 py-0.5 text-center text-xs font-medium leading-5 text-white ring-1 ring-inset ring-indigo-500"
               aria-hidden="true"
@@ -55,26 +55,32 @@ const GuideList = ({ guides }: any) => {
   });
 };
 
-export default function Sidebar({ cookbooks }: { cookbooks: Cookbook[] }) {
+export default function Sidebar({
+  cookbook,
+  guides,
+}: {
+  cookbook: Cookbook;
+  guides: any[];
+}) {
   return (
     <div className="h-screen w-64 flex flex-col gap-y-5 overflow-y-auto bg-slate-800">
       <div className="flex items-center p-2">
         <Image
           className="w-auto rounded"
-          src={cookbooks[0]?.banner_url}
+          src={cookbook.banner_url}
           alt="Your Company"
-          width={100}
-          height={100}
+          width={0}
+          height={0}
         />
       </div>
-      <nav className="flex flex-1 flex-col p-4">
+      <nav className="flex flex-1 flex-col px-4 pb-4">
         <ul role="list" className="flex flex-1 flex-col gap-y-7">
           <li>
             <ul role="list" className="-mx-2 space-y-1">
-              <GuideList guides={cookbooks} />
+              <GuideList guides={guides} />
             </ul>
           </li>
-          <li className="mt-auto w-full">
+          {/* <li className="mt-auto w-full">
             <a
               href="#"
               className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-white hover:bg-indigo-700"
@@ -87,7 +93,7 @@ export default function Sidebar({ cookbooks }: { cookbooks: Cookbook[] }) {
               <span className="sr-only">Your profile</span>
               <span aria-hidden="true">Tom Cook</span>
             </a>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </div>
