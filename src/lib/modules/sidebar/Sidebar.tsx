@@ -55,14 +55,14 @@ const GuideList = ({ cookbook, guides }: any) => {
             aria-hidden="true"
           />
           {guide.title}
-          {guide.sections.length ? (
+          {/* {guide.sections.length ? (
             <span
               className="ml-auto w-9 min-w-max whitespace-nowrap rounded-full bg-transparent px-2.5 py-0.5 text-center text-xs font-medium leading-5 text-white ring-1 ring-inset ring-indigo-500"
               aria-hidden="true"
             >
               {guide.count}
             </span>
-          ) : null}
+          ) : null} */}
         </a>
         <ul className="ml-4">
           <SectionList
