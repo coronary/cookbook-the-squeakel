@@ -1,9 +1,7 @@
-import Sidebar from "@/lib/modules/sidebar/Sidebar";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import HttpService from "@/lib/utils/HttpService";
 import { Routes } from "@/lib/constants/ApiRoutes";
-import { useStore } from "./page";
 import CookbookSidebar from "@/lib/modules/sidebar/CookbookSidebar";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -28,7 +26,6 @@ export default async function RootLayout({
     const cookbooks = await HttpService.get(Routes.COOKBOOK_GET_ALL, {
       game: games[0]._id,
     });
-    useStore.setState({ cookbooks });
 
     content = (
       <>
