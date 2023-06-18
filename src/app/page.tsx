@@ -9,7 +9,7 @@ export const useStore = create(() => ({
 
 export default function Home() {
   return (
-    <main className={"flex-1 overflow-y-auto"}>
+    <main className={"scrollbar flex-1 overflow-y-auto"}>
       {/* <Editor /> */}
       <Markdown />
     </main>

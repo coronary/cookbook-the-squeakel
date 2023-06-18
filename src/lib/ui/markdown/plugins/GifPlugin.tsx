@@ -5,7 +5,7 @@ import { GifElement } from "./GifElement";
 export const GifPlugin = () => {
   return (markdownAST) => {
     visit(markdownAST, "text", (node) => {
-      if (node.value.includes("gif:")) {
+      if (node.value.includes("gif:http")) {
         const value = node.value.replace("gif:", "");
         const srcs = value.split(",");
 

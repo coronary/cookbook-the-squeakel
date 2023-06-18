@@ -1,5 +1,8 @@
 export type Cookbook = {
-  id: string;
+  _id: string;
   name: string;
   banner_url: string;
+  character: {
+    name: string;
+  };
 };
