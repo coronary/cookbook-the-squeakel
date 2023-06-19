@@ -26,9 +26,7 @@ function useOnScreen(ref) {
 export const GifElement = ({ value, src }) => {
   const ref: any = React.useRef();
   const isVisible = useOnScreen(ref);
-  const [videoSrc, setVideoSrc] = React.useState(
-    <source src={src} type="video/mp4"></source>
-  );
+  const [url, setUrl] = React.useState(null);
 
   React.useEffect(() => {
     const init = async () => {
@@ -52,19 +50,35 @@ export const GifElement = ({ value, src }) => {
         const { thumbnail } = gfyTransform(newUrl);
         newUrl = thumbnail;
       }
-      setVideoSrc(<source src={newUrl} type="video/mp4"></source>);
+      setUrl(newUrl);
     };
     init();
   }, [src, value]);
 
   return (
     <div className={"flex my-2 max-w-4xl"} ref={ref}>
-      {value.includes("gfycat") ? (
-        <video autoPlay loop muted disableRemotePlayback className={"rounded"}>
-          {isVisible && videoSrc}
-        </video>
-      ) : (
-        <Image src={src} alt="gif" className="rounded" width={0} height={0} />
+      {url != null && (
+        <>
+          {value.includes("gfycat") ? (
+            <video
+              autoPlay
+              loop
+              muted
+              disableRemotePlayback
+              className={"rounded"}
+            >
+              {isVisible && <source src={url} type="video/mp4"></source>}
+            </video>
+          ) : (
+            <Image
+              src={url}
+              alt="gif"
+              className="rounded"
+              width={0}
+              height={0}
+            />
+          )}
+        </>
       )}
     </div>
   );
