@@ -25,7 +25,7 @@ export default async function Section({ params }) {
       <head>
         <title>{section.title}</title>
         <meta name="description" content={`${body?.slice(0, 150)}...`} />
-        {gifs != null && <meta name="og-image" content={gifs} />}
+        {gifs != null && <meta name="og:image" content={gifs} />}
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           property="og:url"
