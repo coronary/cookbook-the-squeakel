@@ -2,7 +2,7 @@ import { Routes } from "@/lib/constants/ApiRoutes";
 import HttpService from "@/lib/utils/HttpService";
 import * as React from "react";
 import { Markdown } from "@/lib/ui/markdown/Markdown";
-import { itemFromUrl } from "@/lib/utils/SectionUtils";
+import { itemFromUrl, parseBody } from "@/lib/utils/SectionUtils";
 
 export default async function Section({ params }) {
   const { cookbook: cookbookParam, folder, file } = params;
@@ -18,8 +18,15 @@ export default async function Section({ params }) {
   const guide = itemFromUrl(guides, folder);
   const section = itemFromUrl(guide.sections, file);
 
+  const { gifs, body } = parseBody(section.body);
+
   return (
     <div className="scrollbar overflow-y-scroll flex flex-1">
+      <head>
+        <title>{section.title}</title>
+        <meta name="description" content={body} />
+        {gifs != null && <meta name="og-image" content={gifs} />}
+      </head>
       <Markdown body={section.body} />
     </div>
   );
