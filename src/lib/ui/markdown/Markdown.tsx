@@ -10,7 +10,7 @@ import remarkGfm from "./plugins/GFM";
 export const Markdown = ({ body }: { body?: string }) => {
   return (
     <ReactMarkdown
-      className="m-12"
+      className="m-12 w-full"
       components={markdownComponents}
       remarkPlugins={[remarkGfm]}
       rehypePlugins={[GifPlugin]}
