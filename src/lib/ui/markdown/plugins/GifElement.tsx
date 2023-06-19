@@ -3,7 +3,6 @@
 import * as React from "react";
 import { gfyTransform } from "@/lib/utils/GfycatUtils";
 import Image from "next/image";
-import axios from "axios";
 import HttpService from "@/lib/utils/HttpService";
 import { Routes } from "@/lib/constants/ApiRoutes";
 
@@ -29,8 +28,6 @@ export const GifElement = ({ value, src }) => {
   const isVisible = useOnScreen(ref);
   const [url, setUrl] = React.useState(src);
 
-  let gifElement;
-
   React.useEffect(() => {
     const init = async () => {
       let newUrl = src;
@@ -44,12 +41,10 @@ export const GifElement = ({ value, src }) => {
           newUrl = await HttpService.post(Routes.GFYCAT, {
             url: src,
           });
-          console.log("🚀 ~ file: GifElement.tsx:47 ~ init ~ newUrl:", newUrl);
         } catch (err) {
           console.log("🚀 ~ file: GifElement.tsx:50 ~ init ~ err:", err);
         }
       }
-      console.log("🚀 ~ file: GifElement.tsx:54 ~ init ~ newUrl:", newUrl);
 
       if (value.includes("gfycat") && newUrl != null) {
         const { thumbnail } = gfyTransform(newUrl);
@@ -60,21 +55,15 @@ export const GifElement = ({ value, src }) => {
     init();
   }, [src, value]);
 
-  if (value.includes("gfycat")) {
-    gifElement = (
-      <video autoPlay loop muted disableRemotePlayback className={"rounded"}>
-        {isVisible && <source src={url} type="video/mp4"></source>}
-      </video>
-    );
-  } else {
-    gifElement = (
-      <Image src={url} alt="gif" className="rounded" width={0} height={0} />
-    );
-  }
-
   return (
     <p className={"flex my-2 max-w-4xl"} ref={ref}>
-      {gifElement}
+      {value.includes("gfycat") ? (
+        <video autoPlay loop muted disableRemotePlayback className={"rounded"}>
+          {isVisible && <source src={url} type="video/mp4"></source>}
+        </video>
+      ) : (
+        <Image src={url} alt="gif" className="rounded" width={0} height={0} />
+      )}
     </p>
   );
 };
