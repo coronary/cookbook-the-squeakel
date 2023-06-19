@@ -44,6 +44,7 @@ export const GifElement = ({ value, src }) => {
           const res = await HttpService.post(Routes.GFYCAT, {
             url: src,
           });
+          console.log("🚀 ~ file: GifElement.tsx:47 ~ init ~ res:", res);
 
           newUrl = res.data;
           console.log("🚀 ~ file: GifElement.tsx:49 ~ init ~ newUrl:", newUrl);
