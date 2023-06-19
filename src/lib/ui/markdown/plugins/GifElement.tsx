@@ -56,7 +56,7 @@ export const GifElement = ({ value, src }) => {
   }, [src, value]);
 
   return (
-    <p className={"flex my-2 max-w-4xl"} ref={ref}>
+    <div className={"flex my-2 max-w-4xl"} ref={ref}>
       {value.includes("gfycat") ? (
         <video autoPlay loop muted disableRemotePlayback className={"rounded"}>
           {isVisible && <source src={url} type="video/mp4"></source>}
@@ -64,6 +64,6 @@ export const GifElement = ({ value, src }) => {
       ) : (
         <Image src={url} alt="gif" className="rounded" width={0} height={0} />
       )}
-    </p>
+    </div>
   );
 };
