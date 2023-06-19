@@ -41,19 +41,13 @@ export const GifElement = ({ value, src }) => {
         !src.includes(".gif")
       ) {
         try {
-          const res = await HttpService.post(Routes.GFYCAT, {
+          newUrl = await HttpService.post(Routes.GFYCAT, {
             url: src,
           });
-          console.log("🚀 ~ file: GifElement.tsx:47 ~ init ~ res:", res);
-
-          newUrl = res.data;
-          console.log("🚀 ~ file: GifElement.tsx:49 ~ init ~ newUrl:", newUrl);
         } catch (err) {
           console.log("🚀 ~ file: GifElement.tsx:50 ~ init ~ err:", err);
         }
       }
-      console.log("🚀 ~ file: GifElement.tsx:55 ~ init ~  newUrl:", newUrl);
-      console.log("🚀 ~ file: GifElement.tsx:57 ~ init ~ (value:", value);
 
       if (value.includes("gfycat") && newUrl != null) {
         const { thumbnail } = gfyTransform(newUrl);
