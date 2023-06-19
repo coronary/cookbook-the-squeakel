@@ -1,5 +1,5 @@
 import * as React from "react";
 
-export default async function Cookbook() {
-  return <div>Hello</div>;
+export default function Cookbook() {
+  return <></>;
 }

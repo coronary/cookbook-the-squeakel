@@ -36,16 +36,8 @@ export default function remarkGfm(options = {}) {
   add("fromMarkdownExtensions", gfmFromMarkdown());
   add("toMarkdownExtensions", gfmToMarkdown(options));
 
-  /**
-   * @param {string} field
-   * @param {unknown} value
-   */
   function add(field, value) {
-    const list /** @type {unknown[]} */ =
-      // Other extensions
-      /* c8 ignore next 2 */
-      data[field] ? data[field] : (data[field] = []);
-
+    const list = data[field] ? data[field] : (data[field] = []);
     list.push(value);
   }
 }

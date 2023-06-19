@@ -1,5 +1,6 @@
 import axios from "axios";
 import qs from "qs";
+import { itemFromUrl } from "./SectionUtils";
 
 const API_URL = process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL;
 
@@ -16,6 +17,17 @@ class HttpService {
       },
     });
     return res.data;
+  }
+
+  async getFromUrl(routeParam: string, route: string, params: any = {}) {
+    const res = await axiosInstance.get(route, {
+      params,
+      paramsSerializer: (params) => {
+        return qs.stringify(params, { arrayFormat: "repeat" });
+      },
+    });
+
+    return itemFromUrl(res.data, routeParam);
   }
 
   async post(route: string, body: any = {}) {
