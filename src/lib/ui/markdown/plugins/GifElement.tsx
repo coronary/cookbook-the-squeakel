@@ -33,6 +33,7 @@ export const GifElement = ({ value, src }) => {
 
   React.useEffect(() => {
     const init = async () => {
+      let newUrl = src;
       if (
         src &&
         src.includes("gfy") &&
@@ -45,26 +46,29 @@ export const GifElement = ({ value, src }) => {
           });
           console.log("🚀 ~ file: GifElement.tsx:46 ~ init ~ res:", res);
 
-          setUrl(res.data);
+          newUrl = res.data;
         } catch (err) {
           console.log("🚀 ~ file: GifElement.tsx:50 ~ init ~ err:", err);
         }
       }
+      if (value.includes("gfycat")) {
+        const { thumbnail } = gfyTransform(newUrl);
+        newUrl = thumbnail;
+      }
+      setUrl(newUrl);
     };
     init();
-  }, [src]);
+  }, [src, value]);
 
   if (value.includes("gfycat")) {
-    const { thumbnail } = gfyTransform(url);
-
     gifElement = (
       <video autoPlay loop muted disableRemotePlayback className={"rounded"}>
-        {isVisible && <source src={thumbnail} type="video/mp4"></source>}
+        {isVisible && <source src={url} type="video/mp4"></source>}
       </video>
     );
   } else {
     gifElement = (
-      <Image src={src} alt="gif" className="rounded" width={0} height={0} />
+      <Image src={url} alt="gif" className="rounded" width={0} height={0} />
     );
   }
 
