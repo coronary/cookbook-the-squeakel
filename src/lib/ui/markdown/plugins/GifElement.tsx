@@ -44,10 +44,12 @@ export const GifElement = ({ value, src }) => {
           newUrl = await HttpService.post(Routes.GFYCAT, {
             url: src,
           });
+          console.log("🚀 ~ file: GifElement.tsx:47 ~ init ~ newUrl:", newUrl);
         } catch (err) {
           console.log("🚀 ~ file: GifElement.tsx:50 ~ init ~ err:", err);
         }
       }
+      console.log("🚀 ~ file: GifElement.tsx:54 ~ init ~ newUrl:", newUrl);
 
       if (value.includes("gfycat") && newUrl != null) {
         const { thumbnail } = gfyTransform(newUrl);
