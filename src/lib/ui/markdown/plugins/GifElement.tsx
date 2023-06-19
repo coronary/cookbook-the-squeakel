@@ -51,7 +51,7 @@ export const GifElement = ({ value, src }) => {
           console.log("🚀 ~ file: GifElement.tsx:50 ~ init ~ err:", err);
         }
       }
-      if (value.includes("gfycat")) {
+      if (value.includes("gfycat") && newUrl != null) {
         const { thumbnail } = gfyTransform(newUrl);
         newUrl = thumbnail;
       }
