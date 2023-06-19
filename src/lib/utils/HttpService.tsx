@@ -17,6 +17,11 @@ class HttpService {
     });
     return res.data;
   }
+
+  async post(route: string, body: any = {}) {
+    const res = await axiosInstance.post(route, body);
+    return res.data;
+  }
 }
 
 const httpService = new HttpService();

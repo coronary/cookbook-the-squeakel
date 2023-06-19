@@ -4,11 +4,12 @@ import { DocumentIcon, FolderIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
+import { v4 as uuid } from "uuid";
 
 const SectionList = ({ cookbook, guide, sections }: any) => {
   return sections.map((section: any) => {
     return (
-      <li key={section.title}>
+      <li key={uuid()}>
         <Link
           href={`/${titleToUrl(cookbook.name)}/${titleToUrl(
             guide.title
@@ -35,7 +36,7 @@ const SectionList = ({ cookbook, guide, sections }: any) => {
 const GuideList = ({ cookbook, guides }: any) => {
   return guides.map((guide: any) => {
     return (
-      <li key={guide.title}>
+      <li key={uuid()}>
         <a
           href={"#"}
           className={classNames(

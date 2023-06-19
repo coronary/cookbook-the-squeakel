@@ -3,6 +3,9 @@
 import * as React from "react";
 import { gfyTransform } from "@/lib/utils/GfycatUtils";
 import Image from "next/image";
+import axios from "axios";
+import HttpService from "@/lib/utils/HttpService";
+import { Routes } from "@/lib/constants/ApiRoutes";
 
 function useOnScreen(ref) {
   const [isIntersecting, setIntersecting] = React.useState(false);
@@ -24,11 +27,34 @@ function useOnScreen(ref) {
 export const GifElement = ({ value, src }) => {
   const ref: any = React.useRef();
   const isVisible = useOnScreen(ref);
+  const [url, setUrl] = React.useState(src);
 
   let gifElement;
 
+  React.useEffect(() => {
+    const init = async () => {
+      if (
+        src &&
+        src.includes("gfy") &&
+        !src.includes(".mp4") &&
+        !src.includes(".gif")
+      ) {
+        try {
+          const res = await HttpService.post(Routes.GFYCAT, {
+            url: src,
+          });
+
+          setUrl(res.data);
+        } catch (err) {
+          console.log("🚀 ~ file: GifElement.tsx:50 ~ init ~ err:", err);
+        }
+      }
+    };
+    init();
+  }, [src]);
+
   if (value.includes("gfycat")) {
-    const { thumbnail } = gfyTransform(src);
+    const { thumbnail } = gfyTransform(url);
 
     gifElement = (
       <video autoPlay loop muted disableRemotePlayback className={"rounded"}>
@@ -42,8 +68,8 @@ export const GifElement = ({ value, src }) => {
   }
 
   return (
-    <div className={"flex my-2 max-w-4xl"} ref={ref}>
+    <p className={"flex my-2 max-w-4xl"} ref={ref}>
       {gifElement}
-    </div>
+    </p>
   );
 };
