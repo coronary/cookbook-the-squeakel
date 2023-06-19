@@ -24,8 +24,15 @@ export default async function Section({ params }) {
     <div className="scrollbar overflow-y-scroll flex flex-1">
       <head>
         <title>{section.title}</title>
-        <meta name="description" content={body} />
+        <meta name="description" content={`${body?.slice(0, 150)}...`} />
         {gifs != null && <meta name="og-image" content={gifs} />}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          property="og:url"
+          content={`https://cookbook.gg/${cookbookParam}/${folder}/${file}`}
+        />
+        <meta property="og:title" content={section.title} />
+        <meta name="theme-color" content="#77d1cc" />
       </head>
       <Markdown body={section.body} />
     </div>
