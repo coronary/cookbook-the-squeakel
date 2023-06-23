@@ -40,7 +40,7 @@ export default async function Layout({
               <Sidebar cookbook={cookbook} guides={guides} />
               <div
                 className={classNames(
-                  "absolute left-0 bg-gray-900 w-screen h-screen md:h-full md:w-full md:relative md:left-0",
+                  "transition-all absolute left-0 bg-gray-900 w-screen h-screen md:h-full md:w-full md:relative md:left-0",
                   {
                     "left-80": isOpen,
                   }
