@@ -1,17 +1,11 @@
 import * as React from "react";
-import { Markdown } from "@/lib/ui/markdown/Markdown";
 import { parseBody } from "@/lib/utils/SectionUtils";
 import { Metadata } from "next";
 import { getSectionFromUrl } from "@/lib/modules/guides/SectionUtils";
+import { SectionLayout } from "@/lib/modules/sections/SectionLayout";
 
 export default async function Section({ params }) {
-  const section = await getSectionFromUrl(params);
-
-  return (
-    <div className="scrollbar overflow-y-scroll flex flex-1 h-full overflow-x-hidden p-8">
-      <Markdown body={section?.body} />
-    </div>
-  );
+  return <SectionLayout guideUrl={params.folder} sectionUrl={params.file} />;
 }
 
 export async function generateMetadata({ params }): Promise<Metadata> {

@@ -7,6 +7,14 @@ import CookbookSidebar from "../sidebar/CookbookSidebar";
 import Sidebar from "../sidebar/Sidebar";
 import classNames from "classnames";
 
+export const CookbookContext = React.createContext<{
+  cookbook: undefined | Cookbook;
+  guides: any;
+}>({
+  cookbook: undefined,
+  guides: undefined,
+});
+
 export const CookbookLayout = ({
   cookbook,
   cookbooks,
@@ -33,7 +41,9 @@ export const CookbookLayout = ({
                 }
               )}
             >
-              {children}
+              <CookbookContext.Provider value={{ cookbook, guides }}>
+                {children}
+              </CookbookContext.Provider>
             </div>
           </>
         );
