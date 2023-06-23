@@ -30,7 +30,7 @@ const CookbookList = ({ cookbooks }: { cookbooks: Cookbook[] }) => {
 
 export default function Sidebar({ cookbooks }: { cookbooks: Cookbook[] }) {
   return (
-    <div className="h-screen min-w-fit w-18 flex flex-col overflow-y-auto bg-slate-900 justify-center items-center py-3 px-1">
+    <div className="h-screen min-w-fit flex flex-col overflow-y-auto bg-slate-900 justify-center items-center py-3 px-1">
       <div className="flex items-center">
         <Image
           className="w-10 h-10"

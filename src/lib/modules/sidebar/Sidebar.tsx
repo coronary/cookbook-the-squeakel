@@ -85,7 +85,7 @@ export default function Sidebar({
   guides: any;
 }) {
   return (
-    <div className="mh-screen w-64 flex flex-col gap-y-5 overflow-hidden bg-slate-800">
+    <div className="min-h-screen shrink-0 w-64 flex flex-col overflow-hidden bg-slate-800">
       <div className="flex items-center p-2">
         <Image
           className="w-auto rounded"

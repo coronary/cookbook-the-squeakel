@@ -8,7 +8,7 @@ export default async function Section({ params }) {
   const section = await getSectionFromUrl(params);
 
   return (
-    <div className="scrollbar overflow-y-scroll flex flex-1">
+    <div className="scrollbar overflow-y-scroll flex flex-1 h-full overflow-x-hidden p-8">
       <Markdown body={section?.body} />
     </div>
   );
