@@ -1,8 +1,9 @@
 import * as React from "react";
 import { parseBody } from "@/lib/utils/SectionUtils";
 import { Metadata } from "next";
-import { getSectionFromUrl } from "@/lib/modules/guides/SectionUtils";
 import { SectionLayout } from "@/lib/modules/sections/SectionLayout";
+import HttpService from "@/lib/utils/HttpService";
+import { Routes } from "@/lib/constants/ApiRoutes";
 
 export default async function Section({ params }) {
   return <SectionLayout guideUrl={params.folder} sectionUrl={params.file} />;
@@ -10,7 +11,9 @@ export default async function Section({ params }) {
 
 export async function generateMetadata({ params }): Promise<Metadata> {
   const { cookbook, folder, file } = params;
-  const section = await getSectionFromUrl(params);
+  const section = await HttpService.get(
+    Routes.SECTION_GET_FROM_NAME(cookbook, folder, file)
+  );
   const { gifs, body } = parseBody(section?.body ?? "");
 
   return {

@@ -11,16 +11,17 @@ export default async function Layout({
   params: any;
 }) {
   let content = <></>;
-
   try {
     const games = await HttpService.get(Routes.GAMES_GET_ALL, {
-      name: "melee",
+      filters: { name: "melee" },
     });
+    // TODO: update to use from name url
     const cookbooks = await HttpService.get(Routes.COOKBOOK_GET_ALL, {
-      game: games[0]._id,
+      populate: true,
+      filters: { game: games[0].id },
     });
     const cookbook = itemFromUrl(cookbooks, params.cookbook);
-    const guides = await HttpService.get(Routes.GUIDES_GET_ALL(cookbook?._id));
+    const guides = cookbook.guides;
 
     content = (
       <CookbookLayout cookbook={cookbook} cookbooks={cookbooks} guides={guides}>

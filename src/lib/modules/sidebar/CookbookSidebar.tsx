@@ -9,13 +9,13 @@ const CookbookList = ({ cookbooks }: { cookbooks: Cookbook[] }) => {
   return (
     <>
       {cookbooks.map((cookbook: Cookbook) => {
-        const { character, name } = cookbook;
+        const { avatarUrl, name } = cookbook;
         return (
           <li key={name}>
-            <Link href={`/${titleToUrl(name)}`}>
+            <Link href={`/${name}`}>
               <Image
                 className="w-10 h-10 my-4"
-                src={MediaRoutes.CHARACTER_ICON("melee", character.name)}
+                src={avatarUrl}
                 alt="Cookbook.gg"
                 width={64}
                 height={64}

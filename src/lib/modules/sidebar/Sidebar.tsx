@@ -11,9 +11,7 @@ const SectionList = ({ cookbook, guide, sections }: any) => {
     return (
       <li key={uuid()}>
         <Link
-          href={`/${titleToUrl(cookbook.name)}/${titleToUrl(
-            guide.title
-          )}/${titleToUrl(section.title)}`}
+          href={`/${cookbook.name}/${guide.name}/${section.name}`}
           className={classNames(
             "text-indigo-200 hover:text-white hover:bg-teal-500",
             "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
@@ -26,7 +24,7 @@ const SectionList = ({ cookbook, guide, sections }: any) => {
             )}
             aria-hidden="true"
           />
-          {section.title}
+          {section.name}
         </Link>
       </li>
     );
@@ -55,7 +53,7 @@ const GuideList = ({ cookbook, guides }: any) => {
             )}
             aria-hidden="true"
           />
-          {guide.title}
+          {guide.name}
           {/* {guide.sections.length ? (
             <span
               className="ml-auto w-9 min-w-max whitespace-nowrap rounded-full bg-transparent px-2.5 py-0.5 text-center text-xs font-medium leading-5 text-white ring-1 ring-inset ring-indigo-500"
@@ -87,13 +85,15 @@ export default function Sidebar({
   return (
     <div className="min-h-screen shrink-0 w-64 flex flex-col overflow-hidden bg-slate-800">
       <div className="flex items-center p-2">
-        <Image
-          className="w-auto rounded"
-          src={cookbook.banner_url}
-          alt={cookbook.name}
-          width={300}
-          height={300}
-        />
+        {cookbook.bannerUrl != null && (
+          <Image
+            className="w-auto rounded"
+            src={cookbook.bannerUrl}
+            alt={cookbook.name}
+            width={300}
+            height={300}
+          />
+        )}
       </div>
       <nav className="scrollbar flex flex-1 flex-col px-4 pb-4 overflow-y-auto overflow-x-hidden">
         <ul role="list" className="flex flex-1 flex-col gap-y-7">

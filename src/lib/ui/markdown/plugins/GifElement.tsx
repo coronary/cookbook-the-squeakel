@@ -6,6 +6,15 @@ import Image from "next/image";
 import HttpService from "@/lib/utils/HttpService";
 import { Routes } from "@/lib/constants/ApiRoutes";
 
+const VALID_URL_REGEX =
+  /^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/;
+
+function isValidUrl(url: string | null) {
+  if (url == null) return false;
+
+  return VALID_URL_REGEX.test(url);
+}
+
 function useOnScreen(ref) {
   const [isIntersecting, setIntersecting] = React.useState(false);
 
@@ -55,11 +64,14 @@ export const GifElement = ({ value, src }) => {
     init();
   }, [src, value]);
 
+  if (!isValidUrl(url))
+    return <div className={"flex my-2 max-w-4xl"} ref={ref}></div>;
+
   return (
     <div className={"flex my-2 max-w-4xl"} ref={ref}>
       {url != null && (
         <>
-          {value.includes("gfycat") ? (
+          {/(\.mp4)/g.test(value) ? (
             <video
               autoPlay
               loop
