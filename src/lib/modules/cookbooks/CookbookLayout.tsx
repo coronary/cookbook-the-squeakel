@@ -16,11 +16,13 @@ export const CookbookContext = React.createContext<{
 });
 
 export const CookbookLayout = ({
+  cookbookName,
   cookbook,
   cookbooks,
   guides,
   children,
 }: {
+  cookbookName;
   cookbook: Cookbook;
   cookbooks: Cookbook[];
   guides: any;
@@ -31,7 +33,10 @@ export const CookbookLayout = ({
       {(isOpen) => {
         return (
           <>
-            <CookbookSidebar cookbooks={cookbooks} />
+            <CookbookSidebar
+              cookbookName={cookbookName}
+              cookbooks={cookbooks}
+            />
             <Sidebar cookbook={cookbook} guides={guides} />
             <div
               className={classNames(

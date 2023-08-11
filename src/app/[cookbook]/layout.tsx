@@ -25,7 +25,12 @@ export default async function Layout({
     const guides = cookbook.guides;
 
     content = (
-      <CookbookLayout cookbook={cookbook} cookbooks={cookbooks} guides={guides}>
+      <CookbookLayout
+        cookbookName={cookbookName}
+        cookbook={cookbook}
+        cookbooks={cookbooks}
+        guides={guides}
+      >
         {children}
       </CookbookLayout>
     );

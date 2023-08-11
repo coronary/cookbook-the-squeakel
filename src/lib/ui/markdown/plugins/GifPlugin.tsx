@@ -5,13 +5,10 @@ import { GifElement } from "./GifElement";
 export const GifPlugin = () => {
   return (markdownAST) => {
     visit(markdownAST, "text", (node) => {
-      if (node.value.includes("gif:http")) {
-        const value = node.value.replace("gif:", "");
+      if (node.value.includes("gif:") && node.value.includes("http")) {
+        const value = node.value.substring(node.value.indexOf("gif:") + 4);
         const srcs = value.split(",");
-
-        node.value = srcs.map((src) => (
-          <GifElement value={node.value} src={src} key={uuid()} />
-        ));
+        node.value = srcs.map((src) => <GifElement src={src} key={uuid()} />);
       }
     });
     return markdownAST;

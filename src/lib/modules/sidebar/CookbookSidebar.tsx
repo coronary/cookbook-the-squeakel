@@ -1,11 +1,16 @@
 import { Cookbook } from "@/lib/modules/cookbooks/CookbookTypes";
 import Image from "next/image";
 import Logo from "../../../app/logo.svg";
-import { MediaRoutes } from "@/lib/constants/ApiRoutes";
 import Link from "next/link";
-import { titleToUrl } from "@/lib/utils/SectionUtils";
+import classnames from "classnames";
 
-const CookbookList = ({ cookbooks }: { cookbooks: Cookbook[] }) => {
+const CookbookList = ({
+  cookbookName,
+  cookbooks,
+}: {
+  cookbookName: string;
+  cookbooks: Cookbook[];
+}) => {
   return (
     <>
       {cookbooks.map((cookbook: Cookbook) => {
@@ -14,7 +19,10 @@ const CookbookList = ({ cookbooks }: { cookbooks: Cookbook[] }) => {
           <li key={name}>
             <Link href={`/${name}`}>
               <Image
-                className="w-10 h-10 my-4"
+                className={classnames("w-10 h-10 my-4", {
+                  ["grayscale"]: cookbookName !== name,
+                  ["opacity-50"]: cookbookName !== name,
+                })}
                 src={avatarUrl}
                 alt="Cookbook.gg"
                 width={64}
@@ -28,7 +36,13 @@ const CookbookList = ({ cookbooks }: { cookbooks: Cookbook[] }) => {
   );
 };
 
-export default function Sidebar({ cookbooks }: { cookbooks: Cookbook[] }) {
+export default function Sidebar({
+  cookbookName,
+  cookbooks,
+}: {
+  cookbookName: string;
+  cookbooks: Cookbook[];
+}) {
   return (
     <div className="h-screen min-w-fit flex flex-col overflow-y-auto bg-slate-900 justify-center items-center py-3 px-1">
       <div className="flex items-center">
@@ -44,7 +58,7 @@ export default function Sidebar({ cookbooks }: { cookbooks: Cookbook[] }) {
         <ul role="list" className="flex flex-1 flex-col gap-y-7">
           <li>
             <ul role="list" className="-mx-2 space-y-1">
-              <CookbookList cookbooks={cookbooks} />
+              <CookbookList cookbookName={cookbookName} cookbooks={cookbooks} />
             </ul>
           </li>
         </ul>

@@ -1,10 +1,10 @@
 import { Cookbook } from "@/lib/modules/cookbooks/CookbookTypes";
-import { titleToUrl } from "@/lib/utils/SectionUtils";
 import { DocumentIcon, FolderIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import Image from "next/image";
 import Link from "next/link";
 import { v4 as uuid } from "uuid";
+import { SibdeBarBanner } from "./SideBarBanner";
 
 const SectionList = ({ cookbook, guide, sections }: any) => {
   return sections.map((section: any) => {
@@ -24,7 +24,7 @@ const SectionList = ({ cookbook, guide, sections }: any) => {
             )}
             aria-hidden="true"
           />
-          {section.name}
+          <span className="truncate text-ellipsis">{section.name}</span>
         </Link>
       </li>
     );
@@ -86,13 +86,7 @@ export default function Sidebar({
     <div className="min-h-screen shrink-0 w-64 flex flex-col overflow-hidden bg-slate-800">
       <div className="flex items-center p-2">
         {cookbook.bannerUrl != null && (
-          <Image
-            className="w-auto rounded"
-            src={cookbook.bannerUrl}
-            alt={cookbook.name}
-            width={300}
-            height={300}
-          />
+          <SibdeBarBanner bannerUrl={cookbook.bannerUrl} name={cookbook.name} />
         )}
       </div>
       <nav className="scrollbar flex flex-1 flex-col px-4 pb-4 overflow-y-auto overflow-x-hidden">
