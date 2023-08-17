@@ -1,7 +1,6 @@
 import { FolderIcon, FolderOpenIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import * as React from "react";
-import { v4 as uuid } from "uuid";
 import SectionList from "../section/SectionList";
 import { Cookbook } from "../../cookbooks/CookbookTypes";
 import { Guide } from "../../guides/GuideTypes";
@@ -22,7 +21,7 @@ export default function GuideItem({
   }
 
   return (
-    <li key={uuid()}>
+    <li>
       <button
         className={classNames(
           "text-indigo-200 hover:text-white hover:bg-teal-500",
