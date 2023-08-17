@@ -12,6 +12,8 @@ export const Routes = {
 
   GFYCAT: "/gfycat",
   POSTS_GET_ALL: (cookbookId) => `/cookbooks/${cookbookId}/posts`,
+  DISCORD_AVATAR: (discordId, discordAvatar) =>
+    `https://cdn.discordapp.com/avatars/${discordId}/${discordAvatar}`,
 };
 
 export const MediaRoutes = {

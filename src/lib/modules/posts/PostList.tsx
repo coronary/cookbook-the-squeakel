@@ -6,6 +6,7 @@ import HttpService from "@/lib/utils/HttpService";
 import { Routes } from "@/lib/constants/ApiRoutes";
 import { CookbookContext } from "../cookbooks/CookbookLayout";
 import PostItem from "./PostItem";
+import { v4 as uuid } from "uuid";
 
 export default function PostList() {
   const { cookbook } = React.useContext(CookbookContext);
@@ -28,7 +29,7 @@ export default function PostList() {
       {posts != null && !isFetching && (
         <>
           {posts.map((post) => (
-            <PostItem post={post} />
+            <PostItem key={uuid()} post={post} />
           ))}
         </>
       )}
