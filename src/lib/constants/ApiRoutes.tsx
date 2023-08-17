@@ -11,6 +11,7 @@ export const Routes = {
     `/cookbookName/${cookbookName}/guideName/${guideName}/sectionName/${sectionName}`,
 
   GFYCAT: "/gfycat",
+  POSTS_GET_ALL: (cookbookId) => `/cookbooks/${cookbookId}/posts`,
 };
 
 export const MediaRoutes = {
