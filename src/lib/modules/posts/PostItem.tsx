@@ -4,7 +4,7 @@ import { Markdown } from "@/lib/ui/markdown/Markdown";
 
 export default function PostItem({ post }: { post: Post }) {
   return (
-    <div className="flex flex-1 gap-x-4 items-baseline">
+    <div className="flex flex-1 gap-x-4 items-baseline w-full">
       <div>
         <img
           className="inline-block h-10 w-10 rounded-full"
@@ -12,7 +12,7 @@ export default function PostItem({ post }: { post: Post }) {
           alt=""
         />
       </div>
-      <div className="">
+      <div className="w-full">
         <div className="text-xl text-white">chef</div>
         <Markdown body={post.body} />
       </div>
