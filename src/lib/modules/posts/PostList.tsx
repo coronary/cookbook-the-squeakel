@@ -25,7 +25,7 @@ export default function PostList() {
   }, []);
 
   return (
-    <div className="flex flex-col h-full overflow-x-hidden p-8 md:pl-16 pb-32 gap-y-12">
+    <div className="scrollbar flex flex-col h-full overflow-x-hidden p-8 md:pl-16 pb-32 gap-y-12">
       {posts != null && !isFetching && (
         <>
           {posts.map((post) => (
