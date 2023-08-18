@@ -69,7 +69,7 @@ export const GifElement = ({ src }) => {
                 loop
                 muted
                 disableRemotePlayback
-                className={"rounded"}
+                className={"rounded aspect-video bg-black"}
                 onLoadedData={handleVideoLoaded}
               >
                 {isVisible && <source src={src} type="video/mp4"></source>}
@@ -80,7 +80,7 @@ export const GifElement = ({ src }) => {
                   <Image
                     src={src.trim().replace(/(\r\n|\n|\r)/gm, "")}
                     alt="gif"
-                    className="w-full rounded"
+                    className="rounded aspect-video bg-black"
                     width={0}
                     height={0}
                     onLoad={handleVideoLoaded}

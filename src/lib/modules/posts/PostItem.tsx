@@ -7,7 +7,7 @@ import { v4 as uuid } from "uuid";
 
 export default function PostItem({ post }: { post: Post }) {
   const { user, tags } = post;
-  console.log("user: ", user);
+
   return (
     <div className="flex flex-1 gap-x-4 items-baseline w-full">
       <div>
