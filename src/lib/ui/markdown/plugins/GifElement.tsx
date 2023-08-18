@@ -80,7 +80,7 @@ export const GifElement = ({ src }) => {
                   <Image
                     src={src.trim().replace(/(\r\n|\n|\r)/gm, "")}
                     alt="gif"
-                    className="rounded aspect-video bg-black"
+                    className="w-full rounded aspect-video bg-black"
                     width={0}
                     height={0}
                     onLoad={handleVideoLoaded}
