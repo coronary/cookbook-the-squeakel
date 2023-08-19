@@ -47,7 +47,7 @@ export default function GuideItem({
             aria-hidden="true"
           />
         )}
-        {guide.name}
+        <span className="truncate text-ellipsis">{guide.name}</span>
       </button>
       <ul className="ml-4">
         {isOpen && (

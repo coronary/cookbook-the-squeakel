@@ -43,12 +43,11 @@ export const GifElement = ({ src }) => {
   const ref: any = React.useRef();
   const isVisible = useOnScreen(ref);
   const [loaded, setLoaded] = React.useState(false);
-  const handleVideoLoaded = debounce(() => setLoaded(true));
+  const handleVideoLoaded = debounce(() => setLoaded(true), 200);
 
   if (src.includes("imgur")) src = imgurTransform(src);
 
   if (!isValidUrl(src)) {
-    console.log("🚀 ~ invalid url ~ src:", src);
     return (
       <div className={"relative aspect-video flex my-2 max-w-4xl"} ref={ref}>
         <MediaLoader />
@@ -57,7 +56,7 @@ export const GifElement = ({ src }) => {
   }
 
   return (
-    <div className={"flex my-2 max-w-4xl"} ref={ref}>
+    <div className={"flex my-2 max-w-3xl"} ref={ref}>
       <div className={"flex w-full relative aspect-video"}>
         {src != null && (
           <>
