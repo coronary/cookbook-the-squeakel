@@ -2,8 +2,7 @@
 
 import * as React from "react";
 
-export default function useInfiniteScroll() {
-  const [page, setPage] = React.useState<number>(0);
+export default function useInfiniteScroll(setPage) {
   const loadMoreRef = React.useRef(null);
 
   const handleObserver = React.useCallback((entries) => {
@@ -27,5 +26,5 @@ export default function useInfiniteScroll() {
     };
   }, [loadMoreRef]);
 
-  return { loadMoreRef, page };
+  return { loadMoreRef };
 }
