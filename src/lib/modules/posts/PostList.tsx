@@ -73,7 +73,7 @@ export default function PostList() {
         <div className="relative mt-2 flex items-center">
           <div className="absolute inset-y-0 left-0 flex py-1.5 pl-1.5"></div>
           <div className="absolute inset-y-0 left-0 flex py-1.5 pl-1.5">
-            <MagnifyingGlassIcon className="text-gray-600 mx-2" />
+            <MagnifyingGlassIcon className="text-slate-400 mx-2" />
           </div>
           <input
             type="text"
@@ -81,7 +81,7 @@ export default function PostList() {
             id="search"
             autoComplete="off"
             placeholder="search #defense #punish"
-            className="bg-gray-900 block w-full rounded-full border-0 py-1.5 pr-8 pl-14 text-gray-400 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-600 focus:ring-1 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6"
+            className="tracking-wide leading-loose bg-slate-800 block w-full rounded-full border-0 py-1.5 pr-8 pl-14 text-slate-300 shadow-sm ring-1 ring-inset ring-slate-700 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6"
             onChange={handleSearchChange}
           />
         </div>
