@@ -9,7 +9,7 @@ export default function PostItem({ post }: { post: Post }) {
   const { user, tags } = post;
 
   return (
-    <div className="flex flex-1 gap-x-4 items-baseline w-full">
+    <div className="flex flex-1 gap-x-4 items-baseline w-full md:max-w-4xl">
       <div>
         <img
           className="inline-block h-10 w-10 rounded-full"
@@ -18,8 +18,8 @@ export default function PostItem({ post }: { post: Post }) {
         />
       </div>
       <div className="w-full">
-        <div className="text-xl text-white">{user.discordUsername}</div>
-        <div className="text-gray-500 flex gap-x-2 flex-wrap mt-2">
+        <div className="text-lg text-white">{user.discordUsername}</div>
+        <div className="text-gray-500 flex gap-x-2 flex-wrap">
           {tags.map((tag) => (
             <TagItem key={uuid()} tag={tag} />
           ))}
