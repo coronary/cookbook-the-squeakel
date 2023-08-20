@@ -69,7 +69,7 @@ export default function PostList() {
 
   return (
     <div className="flex flex-col min-h-full h-full">
-      <div className="pt-2 px-4 md:px-8 md:pl-16 mb-2 max-w-2xl">
+      <div className="pt-2 px-4 md:px-8 md:pl-16 mb-2 md:max-w-lg">
         <div className="relative mt-2 flex items-center">
           <div className="absolute inset-y-0 left-0 flex py-1.5 pl-1.5"></div>
           <div className="absolute inset-y-0 left-0 flex py-1.5 pl-1.5">
@@ -81,7 +81,7 @@ export default function PostList() {
             id="search"
             autoComplete="off"
             placeholder="search #defense #punish"
-            className="tracking-wide leading-loose bg-slate-800 block w-full rounded-full border-0 py-1.5 pr-8 pl-14 text-slate-300 shadow-sm ring-1 ring-inset ring-slate-700 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6"
+            className="tracking-wide leading-loose bg-slate-800 block w-full rounded-full border-0 py-1.5 pr-8 pl-14 text-slate-300 shadow-sm  placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-teal-500 sm:text-sm sm:leading-6"
             onChange={handleSearchChange}
           />
         </div>
