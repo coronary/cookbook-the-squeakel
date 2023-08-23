@@ -25,20 +25,20 @@ export default function PostList() {
   const { loadMoreRef } = useInfiniteScroll(setPage);
   const debouncesetIsFetching = debounce(() => setIsFetching(false));
 
-  async function fetchPosts() {
+  async function fetchPosts(initialPage = page, initialPosts = posts) {
     if (cookbook == null) {
       return;
     }
 
     const newPosts = await HttpService.get(Routes.POSTS_GET_ALL(cookbook.id), {
       options: {
-        skip: page * POST_LIMIT,
+        skip: initialPage * POST_LIMIT,
         limit: POST_LIMIT,
       },
       search: searchText,
     });
 
-    setPosts((prevPosts) => [...prevPosts, ...newPosts]);
+    setPosts([...initialPosts, ...newPosts]);
   }
 
   React.useEffect(() => {
@@ -55,7 +55,8 @@ export default function PostList() {
     setPosts([]);
 
     const delayDebounceFn = setTimeout(async () => {
-      await fetchPosts();
+      // Setting initial "avoids" a race condition with setPage and setPosts
+      await fetchPosts(0, []);
       debouncesetIsFetching();
     }, 500);
 
