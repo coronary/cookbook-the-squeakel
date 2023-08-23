@@ -23,8 +23,8 @@ export async function generateMetadata({ params }): Promise<Metadata> {
     authors: [{ name: cookbook.name }],
     themeColor: "#77d1cc",
     openGraph: {
-      ...(gif != null && { images: [gif] }),
-      ...(video != null && { videos: [video] }),
+      ...(gif != null && gif.length > 0 && { images: [gif] }),
+      ...(video != null && video.length > 0 && { videos: [video] }),
       title: section?.name,
       description: `${body?.slice(0, 4000)}...`,
       url: `https://cookbook.gg/${cookbook}/${folder}/${file}`,
