@@ -30,6 +30,15 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/captain-falcon/clips",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
