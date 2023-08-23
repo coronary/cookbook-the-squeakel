@@ -19,14 +19,14 @@ export async function generateMetadata({ params }): Promise<Metadata> {
   return {
     title: section?.name,
     twitter: { card: "summary_large_image" },
-    description: `${body?.slice(0, 50)}...`,
+    description: `${body?.slice(0, 150)}...`,
     authors: [{ name: cookbook.name }],
     themeColor: "#77d1cc",
     openGraph: {
       ...(gif != null && { images: [gif] }),
       ...(video != null && { videos: [video] }),
       title: section?.name,
-      description: `${body?.slice(0, 50)}...`,
+      description: `${body?.slice(0, 150)}...`,
       url: `https://cookbook.gg/${cookbook}/${folder}/${file}`,
       siteName: "cookbook.gg",
       authors: [cookbook.name],
