@@ -14,17 +14,17 @@ export async function generateMetadata({ params }): Promise<Metadata> {
   const section = await HttpService.get(
     Routes.SECTION_GET_FROM_NAME(cookbook, folder, file)
   );
-  const { gifs, body, videos } = parseBody(section?.body ?? "");
+  const { gif, body, video } = parseBody(section?.body ?? "");
 
   return {
     title: section?.title,
     twitter: { card: "summary_large_image" },
     description: `${body?.slice(0, 150)}...`,
-    authors: [cookbook.name],
+    authors: [{ name: cookbook.name }],
     themeColor: "#77d1cc",
     openGraph: {
-      images: gifs,
-      videos: videos,
+      ...(gif != null && { images: [gif] }),
+      ...(video != null && { videos: [video] }),
       title: section?.title,
       description: `${body?.slice(0, 150)}...`,
       url: `https://cookbook.gg/${cookbook}/${folder}/${file}`,

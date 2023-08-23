@@ -18,15 +18,15 @@ export const parseBody = (string: string) => {
   const matches = string.match(/(gif:)\S*/g);
   if (matches == null || !matches.length) return {};
   const url = matches?.[0].split(",")?.[0].replace(/(gif:)/, "");
-  const videos: string[] = [];
-  const gifs: string[] = [];
+  let video: string = "";
+  let gif: string = "";
 
-  if (url.includes(".gif")) gifs.push(url);
-  if (url.includes(".mp4")) videos.push(url);
+  if (url?.includes(".gif")) gif = url;
+  if (url?.includes(".mp4")) video = url;
 
   return {
-    gifs,
-    videos,
+    gif,
+    video,
     body: string.replace(/(gif:)|(vid:)|(loop:)|(tweet:)|(#)/g, ""),
   };
 };
