@@ -17,7 +17,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
   const { gif, body, video } = parseBody(section?.body ?? "");
 
   return {
-    title: section?.title,
+    title: section?.name,
     twitter: { card: "summary_large_image" },
     description: `${body?.slice(0, 150)}...`,
     authors: [{ name: cookbook.name }],
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
     openGraph: {
       ...(gif != null && { images: [gif] }),
       ...(video != null && { videos: [video] }),
-      title: section?.title,
+      title: section?.name,
       description: `${body?.slice(0, 150)}...`,
       url: `https://cookbook.gg/${cookbook}/${folder}/${file}`,
       siteName: "cookbook.gg",
