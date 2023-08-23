@@ -14,7 +14,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
   const section = await HttpService.get(
     Routes.SECTION_GET_FROM_NAME(cookbook, folder, file)
   );
-  const { gif, body, video } = parseBody(section?.body ?? "");
+  const { gif, body } = parseBody(section?.body ?? "");
 
   return {
     title: section?.name,
@@ -24,12 +24,11 @@ export async function generateMetadata({ params }): Promise<Metadata> {
     themeColor: "#77d1cc",
     openGraph: {
       ...(gif != null && gif.length > 0 && { images: [gif] }),
-      ...(video != null && video.length > 0 && { videos: [video] }),
       title: section?.name,
       description: `${body?.slice(0, 4000)}...`,
       url: `https://cookbook.gg/${cookbook}/${folder}/${file}`,
       siteName: `cookbook.gg/${cookbook}/${folder}/${file}`,
-      type: "video.other",
+      authors: [cookbook.name],
     },
   };
 }

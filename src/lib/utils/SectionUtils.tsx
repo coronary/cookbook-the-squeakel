@@ -19,15 +19,13 @@ export const parseBody = (string: string) => {
   if (matches == null || !matches.length)
     return { body: string.replace(/(gif:)|(vid:)|(loop:)|(tweet:)|(#)/g, "") };
   const url = matches?.[0].split(",")?.[0].replace(/(gif:)/, "");
-  let video: string = "";
   let gif: string = "";
 
   if (url?.includes(".gif")) gif = url;
-  if (url?.includes(".mp4")) video = url;
+  if (url?.includes(".mp4")) gif = url.replace(".mp4", ".gif");
 
   return {
     gif,
-    video,
     body: string.replace(/(gif:)|(vid:)|(loop:)|(tweet:)|(#)/g, ""),
   };
 };
