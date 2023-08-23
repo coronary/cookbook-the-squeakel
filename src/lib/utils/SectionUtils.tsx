@@ -23,11 +23,10 @@ export const parseBody = (string: string) => {
   let gif: string = "";
 
   if (url?.includes(".gif")) gif = url;
-  if (url?.includes(".mp4")) video = url;
+  if (url?.includes(".mp4")) gif = url.replace(".mp4", ".gif");
 
   return {
     gif,
-    video,
     body: string.replace(/(gif:)|(vid:)|(loop:)|(tweet:)|(#)/g, ""),
   };
 };
