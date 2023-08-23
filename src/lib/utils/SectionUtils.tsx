@@ -16,7 +16,8 @@ export function itemFromUrl(items: any, url: string) {
 
 export const parseBody = (string: string) => {
   const matches = string.match(/(gif:)\S*/g);
-  if (matches == null || !matches.length) return {};
+  if (matches == null || !matches.length)
+    return { body: string.replace(/(gif:)|(vid:)|(loop:)|(tweet:)|(#)/g, "") };
   const url = matches?.[0].split(",")?.[0].replace(/(gif:)/, "");
   let video: string = "";
   let gif: string = "";
