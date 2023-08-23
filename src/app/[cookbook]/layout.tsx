@@ -16,7 +16,7 @@ export default async function Layout({
       filters: { name: "melee" },
     });
     const cookbooks = await HttpService.get(Routes.COOKBOOK_GET_ALL, {
-      filters: { game: games[0].id },
+      filters: { game: games[0].id, preview: false },
     });
     const cookbook = await HttpService.get(
       Routes.COOKBOOK_GET_FROM_NAME(cookbookName),
