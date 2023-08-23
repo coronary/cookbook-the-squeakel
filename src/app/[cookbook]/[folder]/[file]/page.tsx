@@ -27,7 +27,7 @@ export async function generateMetadata({ params }): Promise<Metadata> {
       title: section?.name,
       description: `${body?.slice(0, 4000)}...`,
       url: `https://cookbook.gg/${cookbook}/${folder}/${file}`,
-      siteName: "cookbook.gg",
+      siteName: `cookbook.gg/${cookbook}/${folder}/${file}`,
       authors: [cookbook.name],
     },
   };
