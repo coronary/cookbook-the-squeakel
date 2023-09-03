@@ -25,7 +25,7 @@ export default function Sidebar({
         <ul role="list" className="flex flex-1 flex-col gap-y-7">
           <li>
             <ul role="list" className="-mx-2 space-y-1">
-              <li>
+              {/* <li>
                 <Link
                   href={`/${cookbook.name}`}
                   className={classNames(
@@ -42,7 +42,7 @@ export default function Sidebar({
                   />
                   Home
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link
                   href={`/${cookbook.name}/clips`}
