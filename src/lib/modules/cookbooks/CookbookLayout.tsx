@@ -6,13 +6,18 @@ import { Cookbook } from "./CookbookTypes";
 import CookbookSidebar from "../sidebar/CookbookSidebar";
 import Sidebar from "../sidebar/Sidebar";
 import classNames from "classnames";
+import HttpService from "@/lib/utils/HttpService";
+import { Routes } from "@/lib/constants/ApiRoutes";
+import { Guide } from "../guides/GuideTypes";
 
 export const CookbookContext = React.createContext<{
   cookbook: undefined | Cookbook;
-  guides: any;
+  guides: Guide[];
+  user: any;
 }>({
   cookbook: undefined,
-  guides: undefined,
+  guides: [],
+  user: undefined,
 });
 
 export const CookbookLayout = ({
@@ -28,28 +33,43 @@ export const CookbookLayout = ({
   guides: any;
   children: any;
 }) => {
+  const [user, setUser] = React.useState(undefined);
+
+  async function fetchUser() {
+    const user = await HttpService.get(Routes.LOGIN_SUCCESS);
+    setUser(user ?? null);
+  }
+
+  React.useEffect(() => {
+    fetchUser();
+  }, []);
+
   return (
     <SwipeView>
       {(isOpen) => {
         return (
           <>
-            <CookbookSidebar
-              cookbookName={cookbookName}
-              cookbooks={cookbooks}
-            />
-            <Sidebar cookbook={cookbook} guides={guides} />
-            <div
-              className={classNames(
-                "transition-all absolute left-0 bg-gray-900 w-screen h-screen md:h-full md:w-full md:relative md:left-0",
-                {
-                  "left-80": isOpen,
-                }
-              )}
-            >
-              <CookbookContext.Provider value={{ cookbook, guides }}>
-                {children}
-              </CookbookContext.Provider>
-            </div>
+            {user !== undefined && (
+              <>
+                <CookbookSidebar
+                  cookbookName={cookbookName}
+                  cookbooks={cookbooks}
+                />
+                <Sidebar cookbook={cookbook} guides={guides} />
+                <div
+                  className={classNames(
+                    "transition-all absolute left-0 bg-gray-900 w-screen h-screen md:h-full md:w-full md:relative md:left-0",
+                    {
+                      "left-80": isOpen,
+                    }
+                  )}
+                >
+                  <CookbookContext.Provider value={{ cookbook, guides, user }}>
+                    {children}
+                  </CookbookContext.Provider>
+                </div>
+              </>
+            )}
           </>
         );
       }}

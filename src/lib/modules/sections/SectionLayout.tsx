@@ -12,9 +12,11 @@ export const SectionLayout = ({
   guideUrl: string;
   sectionUrl: string;
 }) => {
-  const { guides } = React.useContext(CookbookContext);
+  const { guides, user } = React.useContext(CookbookContext);
   const guide = itemFromUrl(guides, guideUrl);
   const section = itemFromUrl(guide.sections, sectionUrl);
+
+  console.log("currentUser: ", user);
 
   return (
     <div className="scrollbar overflow-y-scroll flex flex-1 flex-col h-full overflow-x-hidden p-8 md:pl-16 pb-32">
