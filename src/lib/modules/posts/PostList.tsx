@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Post, Tag } from "./PostTypes";
+import { Post } from "./PostTypes";
 import HttpService from "@/lib/utils/HttpService";
 import { Routes } from "@/lib/constants/ApiRoutes";
 import { CookbookContext } from "../cookbooks/CookbookLayout";
@@ -19,7 +19,7 @@ export default function PostList() {
   const [isFetching, setIsFetching] = React.useState<boolean>(true);
   const [posts, setPosts] = React.useState<Post[]>([]);
   const [searchText, setSearchText] = React.useState<string | undefined>(
-    undefined
+    undefined,
   );
   const [page, setPage] = React.useState<number>(0);
   const { loadMoreRef } = useInfiniteScroll(setPage);
@@ -97,7 +97,11 @@ export default function PostList() {
         {posts.length > 0 && !isFetching && (
           <>
             {posts.map((post) => (
-              <PostItem key={uuid()} post={post} />
+              <PostItem
+                key={uuid()}
+                post={post}
+                backupImg={cookbook?.avatarUrl ?? ""}
+              />
             ))}
           </>
         )}
