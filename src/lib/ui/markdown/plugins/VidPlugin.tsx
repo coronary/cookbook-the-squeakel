@@ -1,6 +1,6 @@
 import { visit } from "unist-util-visit";
 import { v4 as uuid } from "uuid";
-import { VidElement } from "./VidElement.tsx";
+import { VidElement } from "./VidElement";
 
 export const VidPlugin = () => {
   return (markdownAST) => {
