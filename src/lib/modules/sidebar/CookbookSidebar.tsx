@@ -2,7 +2,7 @@ import { Cookbook } from "@/lib/modules/cookbooks/CookbookTypes";
 import Image from "next/image";
 import Logo from "../../../app/logo.svg";
 import Link from "next/link";
-import classnames from "classnames";
+import classNames from "classnames";
 
 const CookbookList = ({
   cookbookName,
@@ -19,7 +19,7 @@ const CookbookList = ({
           <li key={name}>
             <Link href={`/${name}`}>
               <Image
-                className={classnames("w-10 h-10 my-4", {
+                className={classNames("w-10 h-10 my-4", {
                   ["grayscale"]: cookbookName !== name,
                   ["opacity-50"]: cookbookName !== name,
                 })}

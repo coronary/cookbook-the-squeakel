@@ -6,7 +6,9 @@ export const ParagraphComponent = {
     />
   ),
   a: (props) => <a className="text-blue-400 inline" {...props} />,
-  pre: (props) => <pre {...props} className="bg-slate-800 p-2 rounded" />,
+  pre: (props) => (
+    <pre {...props} className="bg-slate-800 p-2 rounded w-max" />
+  ),
   code: (props) => <code {...props} className="text-violet-400" />,
   blockquote: (props) => (
     <blockquote
