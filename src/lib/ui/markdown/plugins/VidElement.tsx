@@ -4,6 +4,8 @@ import * as React from "react";
 import { debounce } from "@/lib/utils/Debounce";
 import { MediaLoader } from "../../skeleton/MediaLoader";
 
+const TWITCH_PARENT = window.location.host;
+
 const VALID_URL_REGEX =
   /(http(s)?:\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
 
@@ -36,9 +38,9 @@ function formatUrl(url) {
 
   if (url.includes("twitch")) {
     if (url.includes("clips.") || url.includes("/clip/")) {
-      return `https://clips.twitch.tv/embed?clip=${urlEnd}&parent=${ENV.twitch_parent}`;
+      return `https://clips.twitch.tv/embed?clip=${urlEnd}&parent=${TWITCH_PARENT}`;
     } else if (url.includes("/videos/")) {
-      return `https://player.twitch.tv/?video=${urlEnd}&parent=${ENV.twitch_parent}&autoplay=false`;
+      return `https://player.twitch.tv/?video=${urlEnd}&parent=${TWITCH_PARENT}&autoplay=false`;
     }
   }
 
