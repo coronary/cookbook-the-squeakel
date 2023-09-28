@@ -1,10 +1,14 @@
+import classNames from "classnames";
 import * as React from "react";
 
-export default function Divider() {
+export default function Divider({ className, innerClassName }) {
   return (
-    <div className="relative py-2">
+    <div className={classNames("relative py-2", className)}>
       <div
-        className="absolute inset-0 flex items-center justify-center"
+        className={classNames(
+          "absolute inset-0 flex items-center justify-center",
+          innerClassName,
+        )}
         aria-hidden="true"
       >
         <div className="w-11/12 border-t border-slate-700"></div>
