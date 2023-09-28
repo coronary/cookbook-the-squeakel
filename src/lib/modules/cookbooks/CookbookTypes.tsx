@@ -3,4 +3,5 @@ export interface Cookbook {
   name: string;
   bannerUrl: string;
   avatarUrl: string;
+  roles: { [key: string]: string };
 }

@@ -9,6 +9,7 @@ import classNames from "classnames";
 import HttpService from "@/lib/utils/HttpService";
 import { Routes } from "@/lib/constants/ApiRoutes";
 import { Guide } from "../guides/GuideTypes";
+import { User } from "../users/UserTypes";
 
 export const CookbookContext = React.createContext<{
   cookbook: undefined | Cookbook;
@@ -33,11 +34,16 @@ export const CookbookLayout = ({
   guides: any;
   children: any;
 }) => {
-  const [user, setUser] = React.useState(undefined);
+  const [user, setUser] = React.useState<User | null | undefined>(undefined);
 
   async function fetchUser() {
-    const user = await HttpService.get(Routes.LOGIN_SUCCESS);
-    setUser(user ?? null);
+    try {
+      const user = await HttpService.get(Routes.LOGIN_SUCCESS);
+      setUser({ ...user } ?? null);
+    } catch (err) {
+      console.log("Error fetching user ", err);
+      setUser(null);
+    }
   }
 
   React.useEffect(() => {
@@ -56,12 +62,13 @@ export const CookbookLayout = ({
                   cookbooks={cookbooks}
                 />
                 <Sidebar cookbook={cookbook} guides={guides} />
+
                 <div
                   className={classNames(
                     "transition-all absolute left-0 bg-gray-900 w-screen h-screen md:h-full md:w-full md:relative md:left-0",
                     {
                       "left-80": isOpen,
-                    }
+                    },
                   )}
                 >
                   <CookbookContext.Provider value={{ cookbook, guides, user }}>

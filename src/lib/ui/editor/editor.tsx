@@ -6,12 +6,17 @@ import useCodeMirror from "./useCodemirror";
 
 import { initialDoc } from "./initialDoc";
 
-interface EditorProps {}
+interface EditorProps {
+  body: string;
+  onChange: (text) => void;
+}
 
-export const Editor = () => {
-  const handleChange = useCallback((state: EditorState) => {}, []);
+export const Editor = ({ body, onChange }) => {
+  const handleChange = useCallback((state: EditorState) => {
+    onChange(state.sliceDoc(state.doc[0], state.doc[state.doc.length - 1]));
+  }, []);
   const [refContainer, editorView] = useCodeMirror<HTMLDivElement>({
-    initialDoc: initialDoc,
+    initialDoc: body ?? initialDoc,
     onChange: handleChange,
   });
 
