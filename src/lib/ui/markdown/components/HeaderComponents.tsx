@@ -12,4 +12,7 @@ export const HeaderComponents = {
   h3: (props) => (
     <h3 className={classNames("text-2xl", defaultClasses)} {...props} />
   ),
+  h4: (props) => (
+    <h4 className={classNames("text-xl", defaultClasses)} {...props} />
+  ),
 };
