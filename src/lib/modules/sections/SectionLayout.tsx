@@ -7,6 +7,7 @@ import { itemFromUrl } from "@/lib/utils/SectionUtils";
 import { Editor } from "@/lib/ui/editor/editor";
 import classNames from "classnames";
 import SectionToolbar from "./SectionToolbar";
+import useEditing from "@/lib/ui/editor/useEditing";
 
 export const SectionLayout = ({
   guideUrl,
@@ -15,19 +16,19 @@ export const SectionLayout = ({
   guideUrl: string;
   sectionUrl: string;
 }) => {
-  const { cookbook, guides, user } = React.useContext(CookbookContext);
-  const [isEditing, setIsEditing] = React.useState<boolean>(false);
+  const { guides, user } = React.useContext(CookbookContext);
   const guide = itemFromUrl(guides, guideUrl);
   const section = itemFromUrl(guide.sections, sectionUrl);
-  const [body, setSectionBody] = React.useState<string>(section?.body ?? "");
-  const canEdit = cookbook?.roles[user?.id] || user?.superAdmin;
+  const { isEditing, setIsEditing, body, setBody, canEdit } = useEditing({
+    initialBody: section?.body ?? "",
+  });
 
   const handleSetEditing = (value: boolean) => {
     setIsEditing(value);
   };
 
   const handleSectionEdit = (text: string) => {
-    setSectionBody(text);
+    setBody(text);
   };
 
   const handleSave = () => {
