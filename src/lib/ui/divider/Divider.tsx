@@ -1,7 +1,12 @@
 import classNames from "classnames";
 import * as React from "react";
 
-export default function Divider({ className, innerClassName }) {
+export default function Divider(
+  { className, innerClassName }: {
+    className?: string;
+    innerClassName?: string;
+  },
+) {
   return (
     <div className={classNames("relative py-2", className)}>
       <div
