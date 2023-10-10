@@ -14,7 +14,7 @@ import { User } from "../users/UserTypes";
 export const CookbookContext = React.createContext<{
   cookbook: undefined | Cookbook;
   guides: Guide[];
-  user: any;
+  user: User | undefined | null;
 }>({
   cookbook: undefined,
   guides: [],
