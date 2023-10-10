@@ -70,7 +70,6 @@ export const SectionLayout = ({
             : <Markdown body={section?.body} />}
         </div>
       </>
-      <div></div>
     </div>
   );
 };
