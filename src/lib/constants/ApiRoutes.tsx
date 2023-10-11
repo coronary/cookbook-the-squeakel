@@ -16,6 +16,8 @@ export const Routes = {
 
   GFYCAT: "/gfycat",
   POSTS_GET_ALL: (cookbookId) => `/cookbooks/${cookbookId}/posts`,
+  POSTS_EDIT: (cookbookId, postId) =>
+    `/cookbooks/${cookbookId}/posts/${postId}`,
   DISCORD_AVATAR: (discordId, discordAvatar) =>
     `https://cdn.discordapp.com/avatars/${discordId}/${discordAvatar}`,
 };

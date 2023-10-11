@@ -11,18 +11,28 @@ import classNames from "classnames";
 import { Editor } from "@/lib/ui/editor/editor";
 import useEditing from "@/lib/ui/editor/useEditing";
 import PostItemToolbar from "./PostItemToolbar";
+import HttpService from "@/lib/utils/HttpService";
 
 export default function PostItem(
-  { post, backupImg }: { post: Post; backupImg: string },
+  { post, backupImg, cookbookId }: {
+    post: Post;
+    backupImg: string;
+    cookbookId: string;
+  },
 ) {
-  const { user: postUser, tags } = post;
+  const { user: postUser, tags, id } = post;
   const { isEditing, setIsEditing, body, setBody, canEdit } = useEditing({
     initialBody: post.body ?? "",
   });
 
-  function handleSave() {
+  async function handleSave() {
     post.body = body;
     setIsEditing(false);
+    try {
+      await HttpService.put(Routes.POSTS_EDIT(cookbookId, id), post);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   return (

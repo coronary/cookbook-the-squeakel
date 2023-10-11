@@ -94,13 +94,14 @@ export default function PostList() {
             <SkeletonPostItem />
           </>
         )}
-        {posts.length > 0 && !isFetching && (
+        {posts.length > 0 && !isFetching && cookbook != null && (
           <>
             {posts.map((post) => (
               <PostItem
                 key={uuid()}
                 post={post}
-                backupImg={cookbook?.avatarUrl ?? ""}
+                backupImg={cookbook.avatarUrl ?? ""}
+                cookbookId={cookbook.id}
               />
             ))}
           </>
