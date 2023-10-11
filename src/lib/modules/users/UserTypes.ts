@@ -6,7 +6,7 @@ export interface SocialLinks {
 }
 
 export interface User {
-  id?: string;
+  id: string;
   discordId: string;
   discordUsername: string;
   discordAvatar: string;
