@@ -6,6 +6,8 @@ export const Routes = {
   GUIDES_GET_ALL: (cookbookId) => `/cookbooks/${cookbookId}/guides`,
   SECTIONS_GET_ALL: (cookbookId, guideId) =>
     `/cookbooks/${cookbookId}/guides/${guideId}/sections`,
+  SECTION_EDIT: (cookbookId, guideId, sectionId) =>
+    `/cookbooks/${cookbookId}/guides/${guideId}/sections/${sectionId}`,
   COOKBOOK_GET_FROM_NAME: (cookbookName) => `/cookbookName/${cookbookName}`,
   GUIDE_GET_FROM_NAME: (cookbookName, guideName) =>
     `/cookbookName/${cookbookName}/guideName/${guideName}`,

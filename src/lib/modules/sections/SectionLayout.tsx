@@ -8,6 +8,8 @@ import { Editor } from "@/lib/ui/editor/editor";
 import classNames from "classnames";
 import SectionToolbar from "./SectionToolbar";
 import useEditing from "@/lib/ui/editor/useEditing";
+import { Routes } from "@/lib/constants/ApiRoutes";
+import HttpService from "@/lib/utils/HttpService";
 
 export const SectionLayout = ({
   guideUrl,
@@ -16,7 +18,7 @@ export const SectionLayout = ({
   guideUrl: string;
   sectionUrl: string;
 }) => {
-  const { guides, user } = React.useContext(CookbookContext);
+  const { cookbook, guides, user } = React.useContext(CookbookContext);
   const guide = itemFromUrl(guides, guideUrl);
   const section = itemFromUrl(guide.sections, sectionUrl);
   const { isEditing, setIsEditing, body, setBody, canEdit } = useEditing({
@@ -31,8 +33,17 @@ export const SectionLayout = ({
     setBody(text);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     section.body = body;
+    try {
+      if (cookbook == null) return;
+      await HttpService.put(
+        Routes.SECTION_EDIT(cookbook.id, guide.id, section.id),
+        section,
+      );
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
