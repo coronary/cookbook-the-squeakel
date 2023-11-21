@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Cookbook } from "../../cookbooks/CookbookTypes";
 import { Guide } from "../../guides/GuideTypes";
 import { Section } from "../../sections/SectionTypes";
+import { SideBarContext } from "../Sidebar";
+import { SideBarContextMenuType } from "../context-menu/SideBarContextMenu";
 
 export default function SectionItem({
   cookbook,
@@ -15,19 +17,36 @@ export default function SectionItem({
   guide: Guide;
   section: Section;
 }) {
+  const { setContextMenuData, setSelectedGuide } = React.useContext(
+    SideBarContext,
+  );
+
   return (
-    <li>
+    <li
+      onContextMenu={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        setSelectedGuide(guide);
+        setContextMenuData({
+          position: {
+            x: e.pageX,
+            y: e.pageY,
+          },
+          type: SideBarContextMenuType.SECTION,
+        });
+      }}
+    >
       <Link
         href={`/${cookbook.name}/${guide.name}/${section.name}`}
         className={classNames(
           "text-indigo-200 hover:text-white hover:bg-teal-500",
-          "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+          "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold",
         )}
       >
         <DocumentIcon
           className={classNames(
             "text-indigo-200 group-hover:text-white",
-            "h-6 w-6 shrink-0"
+            "h-6 w-6 shrink-0",
           )}
           aria-hidden="true"
         />
