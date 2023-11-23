@@ -10,10 +10,10 @@ export const SibdeBarBanner = ({ bannerUrl, name }) => {
   const handleOnLoad = debounce(() => setLoaded(true));
 
   return (
-    <div className="relative aspect-video">
+    <div className="relative aspect-video w-full">
       {!loaded && <MediaLoader />}
       <Image
-        className="w-auto rounded"
+        className="rounded aspect-video w-full"
         src={bannerUrl}
         alt={name}
         width={300}

@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Cookbook } from "../../cookbooks/CookbookTypes";
 import { Guide } from "../../guides/GuideTypes";
 import { Section } from "../../sections/SectionTypes";
+import { SideBarContextMenuType } from "../context-menu/SideBarContextMenu";
+import { useCookbookStore } from "@/store/store";
 
 export default function SectionItem({
   cookbook,
@@ -15,8 +17,25 @@ export default function SectionItem({
   guide: Guide;
   section: Section;
 }) {
+  const { setContextMenuData, setSelectedGuide } = useCookbookStore(
+    (state) => state
+  );
+
   return (
-    <li>
+    <li
+      onContextMenu={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        setSelectedGuide(guide);
+        setContextMenuData({
+          position: {
+            x: e.pageX,
+            y: e.pageY,
+          },
+          type: SideBarContextMenuType.SECTION,
+        });
+      }}
+    >
       <Link
         href={`/${cookbook.name}/${guide.name}/${section.name}`}
         className={classNames(

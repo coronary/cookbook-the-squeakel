@@ -1,11 +1,20 @@
-import { Cookbook } from "@/lib/modules/cookbooks/CookbookTypes";
-import { FilmIcon, HomeIcon } from "@heroicons/react/24/outline";
+"use client";
+import * as React from "react";
 import classNames from "classnames";
 import Link from "next/link";
-import { SibdeBarBanner } from "./SideBarBanner";
 import Divider from "@/lib/ui/divider/Divider";
 import GuideList from "./guide/GuideList";
+import { Cookbook } from "@/lib/modules/cookbooks/CookbookTypes";
+import { FilmIcon } from "@heroicons/react/24/outline";
+import { SibdeBarBanner } from "./SideBarBanner";
 import { Guide } from "../guides/GuideTypes";
+import {
+  SidebarContextMenu,
+  SideBarContextMenuType,
+} from "./context-menu/SideBarContextMenu";
+import { SideBarModal } from "./SideBarModal";
+import { useCookbookStore } from "@/store/store";
+import { canEdit } from "@/lib/utils/canEdit";
 
 export default function Sidebar({
   cookbook,
@@ -14,14 +23,62 @@ export default function Sidebar({
   cookbook: Cookbook;
   guides: Guide[];
 }) {
+  const {
+    user,
+    contextMenuData,
+    setContextMenuData,
+    modal,
+    setModal,
+    selectedGuide,
+  } = useCookbookStore();
+
+  React.useEffect(() => {
+    window.addEventListener("click", handleOnClick);
+    return () => {
+      window.removeEventListener("click", handleOnClick);
+    };
+  }, []);
+
+  function handleOnClick() {
+    setContextMenuData(null);
+  }
+
   return (
     <div className="min-h-screen shrink-0 w-64 flex flex-col overflow-hidden bg-slate-800">
+      <SideBarModal
+        type={modal.type}
+        open={modal.open}
+        setOpen={(isOpen) => setModal({ ...modal, open: isOpen })}
+        cookbook={cookbook}
+        guide={selectedGuide}
+      />
+      {contextMenuData != null &&
+        contextMenuData.position != null &&
+        contextMenuData.type != null &&
+        canEdit(user, cookbook) && (
+          <SidebarContextMenu
+            type={contextMenuData.type}
+            position={contextMenuData.position}
+          />
+        )}
       <div className="flex items-center p-2">
         {cookbook.bannerUrl != null && (
           <SibdeBarBanner bannerUrl={cookbook.bannerUrl} name={cookbook.name} />
         )}
       </div>
-      <nav className="scrollbar flex flex-1 flex-col px-4 pb-4 overflow-y-auto overflow-x-hidden">
+      <nav
+        className="scrollbar flex flex-1 flex-col px-4 pb-4 overflow-y-auto overflow-x-hidden"
+        onContextMenu={(e) => {
+          e.preventDefault();
+          setContextMenuData({
+            position: {
+              x: e.pageX,
+              y: e.pageY,
+            },
+            type: SideBarContextMenuType.DEFAULT,
+          });
+        }}
+      >
         <ul role="list" className="flex flex-1 flex-col gap-y-7">
           <li>
             <ul role="list" className="-mx-2 space-y-1">

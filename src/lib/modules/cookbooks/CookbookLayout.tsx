@@ -8,18 +8,7 @@ import Sidebar from "../sidebar/Sidebar";
 import classNames from "classnames";
 import HttpService from "@/lib/utils/HttpService";
 import { Routes } from "@/lib/constants/ApiRoutes";
-import { Guide } from "../guides/GuideTypes";
-import { User } from "../users/UserTypes";
-
-export const CookbookContext = React.createContext<{
-  cookbook: undefined | Cookbook;
-  guides: Guide[];
-  user: User | undefined | null;
-}>({
-  cookbook: undefined,
-  guides: [],
-  user: undefined,
-});
+import { useCookbookStore } from "@/store/store";
 
 export const CookbookLayout = ({
   cookbookName,
@@ -34,15 +23,21 @@ export const CookbookLayout = ({
   guides: any;
   children: any;
 }) => {
-  const [user, setUser] = React.useState<User | null | undefined>(undefined);
+  const {
+    user,
+    guides: storeGuides,
+    cookbook: storeCookbook,
+    cookbooks: storeCookbooks,
+    setInitialState,
+  } = useCookbookStore((state) => state);
 
   async function fetchUser() {
     try {
       const user = await HttpService.get(Routes.LOGIN_SUCCESS);
-      setUser({ ...user } ?? null);
+      setInitialState(user, cookbook, cookbooks, guides);
     } catch (err) {
       console.log("Error fetching user ", err);
-      setUser(null);
+      setInitialState(null, cookbook, cookbooks, guides);
     }
   }
 
@@ -59,21 +54,22 @@ export const CookbookLayout = ({
               <>
                 <CookbookSidebar
                   cookbookName={cookbookName}
-                  cookbooks={cookbooks}
+                  cookbooks={storeCookbooks}
                 />
-                <Sidebar cookbook={cookbook} guides={guides} />
+
+                {storeCookbook && (
+                  <Sidebar guides={storeGuides} cookbook={storeCookbook} />
+                )}
 
                 <div
                   className={classNames(
                     "transition-all absolute left-0 bg-gray-900 w-screen h-screen md:h-full md:w-full md:relative md:left-0",
                     {
                       "left-80": isOpen,
-                    },
+                    }
                   )}
                 >
-                  <CookbookContext.Provider value={{ cookbook, guides, user }}>
-                    {children}
-                  </CookbookContext.Provider>
+                  {children}
                 </div>
               </>
             )}

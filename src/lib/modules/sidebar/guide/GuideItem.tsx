@@ -1,9 +1,11 @@
+import * as React from "react";
 import { FolderIcon, FolderOpenIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
-import * as React from "react";
 import SectionList from "../section/SectionList";
 import { Cookbook } from "../../cookbooks/CookbookTypes";
 import { Guide } from "../../guides/GuideTypes";
+import { SideBarContextMenuType } from "../context-menu/SideBarContextMenu";
+import { useCookbookStore } from "@/store/store";
 
 export default function GuideItem({
   cookbook,
@@ -14,6 +16,9 @@ export default function GuideItem({
   guide: Guide;
   initialIsOpen: boolean;
 }) {
+  const { setContextMenuData, setSelectedGuide } = useCookbookStore(
+    (state) => state
+  );
   const [isOpen, setIsOpen] = React.useState<boolean>(initialIsOpen);
 
   function handleToggleOpen() {
@@ -21,7 +26,20 @@ export default function GuideItem({
   }
 
   return (
-    <li>
+    <li
+      onContextMenu={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setSelectedGuide(guide);
+        setContextMenuData({
+          position: {
+            x: e.pageX,
+            y: e.pageY,
+          },
+          type: SideBarContextMenuType.GUIDE,
+        });
+      }}
+    >
       <button
         className={classNames(
           "text-indigo-200 hover:text-white hover:bg-teal-500",

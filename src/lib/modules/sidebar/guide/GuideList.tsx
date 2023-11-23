@@ -4,7 +4,7 @@ import GuideItem from "./GuideItem";
 import { Cookbook } from "../../cookbooks/CookbookTypes";
 import { v4 as uuid } from "uuid";
 
-export default function GuideList({
+export default React.memo(function GuideList({
   cookbook,
   guides,
 }: {
@@ -15,6 +15,7 @@ export default function GuideList({
     <>
       {guides.map((guide: any, index) => {
         const initialIsOpen = guides.length < 5 || index === 0;
+
         return (
           <GuideItem
             key={uuid()}
@@ -26,4 +27,4 @@ export default function GuideList({
       })}
     </>
   );
-}
+});
