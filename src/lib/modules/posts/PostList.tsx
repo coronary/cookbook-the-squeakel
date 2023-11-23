@@ -15,7 +15,7 @@ import { useCookbookStore } from "@/store/store";
 const POST_LIMIT = 10;
 
 export default function PostList() {
-  const { cookbook } = useCookbookStore((state) => state);
+  const { cookbook } = useCookbookStore();
   const [isFetching, setIsFetching] = React.useState<boolean>(true);
   const [posts, setPosts] = React.useState<Post[]>([]);
   const [searchText, setSearchText] = React.useState<string | undefined>(
@@ -42,6 +42,7 @@ export default function PostList() {
   }
 
   React.useEffect(() => {
+    if (page === 0) return;
     async function init() {
       await fetchPosts();
       debouncesetIsFetching();
@@ -61,7 +62,7 @@ export default function PostList() {
     }, 500);
 
     return () => clearTimeout(delayDebounceFn);
-  }, [searchText]);
+  }, [searchText, cookbook]);
 
   function handleSearchChange(event) {
     const search = event.target.value === "" ? undefined : event.target.value;

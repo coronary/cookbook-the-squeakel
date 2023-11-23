@@ -23,6 +23,7 @@ export type SideBarModalData = {
 
 export interface CookbookStore {
   cookbook: Cookbook | null | undefined;
+  setCookbook: (cookbook: Cookbook) => void;
   cookbooks: Cookbook[];
   setCookbooks: (cookbooks: Cookbook[]) => void;
   guides: Guide[];
@@ -47,6 +48,9 @@ export interface CookbookStore {
 
 export const useCookbookStore = create<CookbookStore>((set) => ({
   cookbook: null,
+  setCookbook: (cookbook) => {
+    set((state) => ({ ...state, cookbook }));
+  },
   cookbooks: [],
   setCookbooks: (cookbooks) => {
     set((state) => ({ ...state, cookbooks }));
