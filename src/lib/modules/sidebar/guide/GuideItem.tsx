@@ -5,7 +5,7 @@ import SectionList from "../section/SectionList";
 import { Cookbook } from "../../cookbooks/CookbookTypes";
 import { Guide } from "../../guides/GuideTypes";
 import { SideBarContextMenuType } from "../context-menu/SideBarContextMenu";
-import { SideBarContext } from "../Sidebar";
+import { useCookbookStore } from "@/store/store";
 
 export default function GuideItem({
   cookbook,
@@ -16,8 +16,8 @@ export default function GuideItem({
   guide: Guide;
   initialIsOpen: boolean;
 }) {
-  const { setContextMenuData } = React.useContext(
-    SideBarContext,
+  const { setContextMenuData, setSelectedGuide } = useCookbookStore(
+    (state) => state
   );
   const [isOpen, setIsOpen] = React.useState<boolean>(initialIsOpen);
 
@@ -30,20 +30,20 @@ export default function GuideItem({
       onContextMenu={(e) => {
         e.preventDefault();
         e.stopPropagation();
+        setSelectedGuide(guide);
         setContextMenuData({
           position: {
             x: e.pageX,
             y: e.pageY,
           },
           type: SideBarContextMenuType.GUIDE,
-          guide
         });
       }}
     >
       <button
         className={classNames(
           "text-indigo-200 hover:text-white hover:bg-teal-500",
-          "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold w-full",
+          "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold w-full"
         )}
         onClick={handleToggleOpen}
       >
@@ -51,7 +51,7 @@ export default function GuideItem({
           <FolderOpenIcon
             className={classNames(
               "text-indigo-200 group-hover:text-white",
-              "h-6 w-6 shrink-0",
+              "h-6 w-6 shrink-0"
             )}
             aria-hidden="true"
           />
@@ -60,7 +60,7 @@ export default function GuideItem({
           <FolderIcon
             className={classNames(
               "text-indigo-200 group-hover:text-white",
-              "h-6 w-6 shrink-0",
+              "h-6 w-6 shrink-0"
             )}
             aria-hidden="true"
           />

@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { CookbookContext } from "../cookbooks/CookbookLayout";
 import { Markdown } from "@/lib/ui/markdown/Markdown";
 import { itemFromUrl } from "@/lib/utils/SectionUtils";
 import { Editor } from "@/lib/ui/editor/editor";
@@ -10,6 +9,7 @@ import SectionToolbar from "./SectionToolbar";
 import useEditing from "@/lib/ui/editor/useEditing";
 import { Routes } from "@/lib/constants/ApiRoutes";
 import HttpService from "@/lib/utils/HttpService";
+import { useCookbookStore } from "@/store/store";
 
 export const SectionLayout = ({
   guideUrl,
@@ -18,7 +18,7 @@ export const SectionLayout = ({
   guideUrl: string;
   sectionUrl: string;
 }) => {
-  const { cookbook, guides, user } = React.useContext(CookbookContext);
+  const { cookbook, guides, user } = useCookbookStore((state) => state);
   const guide = itemFromUrl(guides, guideUrl);
   const section = itemFromUrl(guide.sections, sectionUrl);
   const { isEditing, setIsEditing, body, setBody, canEdit } = useEditing({
@@ -39,7 +39,7 @@ export const SectionLayout = ({
       if (cookbook == null) return;
       await HttpService.put(
         Routes.SECTION_EDIT(cookbook.id, guide.id, section.id),
-        section,
+        section
       );
     } catch (err) {
       console.log(err);
@@ -48,9 +48,7 @@ export const SectionLayout = ({
 
   return (
     <div
-      className={classNames(
-        "flex flex-1 flex-col h-full overflow-x-hidden",
-      )}
+      className={classNames("flex flex-1 flex-col h-full overflow-x-hidden")}
     >
       <>
         {canEdit && (
@@ -68,17 +66,14 @@ export const SectionLayout = ({
               "md:pl-16": !isEditing,
               "pb-32": !isEditing,
               "pb-8": isEditing,
-            },
+            }
           )}
         >
-          {isEditing && user != null
-            ? (
-              <Editor
-                body={section.body}
-                onChange={handleSectionEdit}
-              />
-            )
-            : <Markdown body={section?.body} />}
+          {isEditing && user != null ? (
+            <Editor body={section.body} onChange={handleSectionEdit} />
+          ) : (
+            <Markdown body={section?.body} />
+          )}
         </div>
       </>
     </div>

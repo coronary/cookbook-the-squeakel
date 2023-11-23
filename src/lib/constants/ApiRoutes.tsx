@@ -15,17 +15,19 @@ export const Routes = {
 
   // GUIDE
   GUIDES_GET_ALL: (cookbookId) => `/cookbooks/${cookbookId}/guides`,
+  GUIDES_ADD: (cookbookId) => `/cookbooks/${cookbookId}/guides`,
   GUIDE_GET_FROM_NAME: (cookbookName, guideName) =>
     `/cookbookName/${cookbookName}/guideName/${guideName}`,
 
   // SECTION
+  SECTIONS_ADD: (cookbookId, guideId) =>
+    `/cookbooks/${cookbookId}/guides/${guideId}/sections`,
   SECTIONS_GET_ALL: (cookbookId, guideId) =>
     `/cookbooks/${cookbookId}/guides/${guideId}/sections`,
   SECTION_EDIT: (cookbookId, guideId, sectionId) =>
     `/cookbooks/${cookbookId}/guides/${guideId}/sections/${sectionId}`,
   SECTION_GET_FROM_NAME: (cookbookName, guideName, sectionName) =>
     `/cookbookName/${cookbookName}/guideName/${guideName}/sectionName/${sectionName}`,
-
 };
 
 export const MediaRoutes = {

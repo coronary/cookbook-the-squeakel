@@ -4,22 +4,22 @@ import * as React from "react";
 import { Post } from "./PostTypes";
 import HttpService from "@/lib/utils/HttpService";
 import { Routes } from "@/lib/constants/ApiRoutes";
-import { CookbookContext } from "../cookbooks/CookbookLayout";
 import PostItem from "./PostItem";
 import { v4 as uuid } from "uuid";
 import useInfiniteScroll from "@/lib/ui/scroll/useInfiniteScroll";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import SkeletonPostItem from "./SkeletonPostItem";
 import { debounce } from "@/lib/utils/Debounce";
+import { useCookbookStore } from "@/store/store";
 
 const POST_LIMIT = 10;
 
 export default function PostList() {
-  const { cookbook } = React.useContext(CookbookContext);
+  const { cookbook } = useCookbookStore((state) => state);
   const [isFetching, setIsFetching] = React.useState<boolean>(true);
   const [posts, setPosts] = React.useState<Post[]>([]);
   const [searchText, setSearchText] = React.useState<string | undefined>(
-    undefined,
+    undefined
   );
   const [page, setPage] = React.useState<number>(0);
   const { loadMoreRef } = useInfiniteScroll(setPage);

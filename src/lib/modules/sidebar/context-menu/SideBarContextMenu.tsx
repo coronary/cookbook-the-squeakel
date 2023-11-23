@@ -1,14 +1,8 @@
 import * as React from "react";
-import {
-  DocumentMinusIcon,
-  DocumentPlusIcon,
-  FolderPlusIcon,
-  PencilSquareIcon,
-  TrashIcon,
-} from "@heroicons/react/24/outline";
+import { DocumentPlusIcon, FolderPlusIcon } from "@heroicons/react/24/outline";
 import { SidebarContextMenuItem } from "./SidebarContextMenuItem";
 import Divider from "@/lib/ui/divider/Divider";
-import { SideBarContextMenuData, SideBarModalData } from "../Sidebar";
+import { useCookbookStore } from "@/store/store";
 
 export enum SideBarContextMenuType {
   DEFAULT,
@@ -33,28 +27,26 @@ export type ContextMenuPosition = {
 interface SideBarContextMenuProps {
   type: SideBarContextMenuType;
   position: ContextMenuPosition;
-  setModal: React.Dispatch<React.SetStateAction<SideBarModalData>>;
-  setContextMenuData: React.Dispatch<
-    React.SetStateAction<SideBarContextMenuData | null>
-  >;
 }
 
-export function SidebarContextMenu(
-  { type, position, setModal, setContextMenuData }: SideBarContextMenuProps,
-) {
+export function SidebarContextMenu({
+  type,
+  position,
+}: SideBarContextMenuProps) {
+  const { setModal, setContextMenuData } = useCookbookStore((state) => state);
   const menuRef = React.useRef<HTMLDivElement>(null);
   const { x, y } = position;
 
   React.useEffect(() => {
     if (
-      menuRef != null && menuRef.current !== null &&
+      menuRef != null &&
+      menuRef.current !== null &&
       menuRef.current.clientHeight + y > window.innerHeight
     ) {
       setContextMenuData({
         position: {
           x: x,
-          y: y -
-            (menuRef?.current?.clientHeight ?? 0),
+          y: y - (menuRef?.current?.clientHeight ?? 0),
         },
         type: type,
       });
@@ -74,18 +66,20 @@ export function SidebarContextMenu(
       <ul>
         {type === SideBarContextMenuType.SECTION && (
           <>
-            <SidebarContextMenuItem
+            {/* <SidebarContextMenuItem
               label="rename section"
               icon={PencilSquareIcon}
               handleOnClick={() =>
-                handleModalOpen(SideBarModalType.RENAME_SECTION)}
+                handleModalOpen(SideBarModalType.RENAME_SECTION)
+              }
             />
             <SidebarContextMenuItem
               label="remove section"
               icon={DocumentMinusIcon}
               handleOnClick={() =>
-                handleModalOpen(SideBarModalType.DELETE_SECTION)}
-            />
+                handleModalOpen(SideBarModalType.DELETE_SECTION)
+              }
+            /> */}
           </>
         )}
 
@@ -96,22 +90,25 @@ export function SidebarContextMenu(
               label="add section"
               icon={DocumentPlusIcon}
               handleOnClick={() =>
-                handleModalOpen(SideBarModalType.ADD_SECTION)}
+                handleModalOpen(SideBarModalType.ADD_SECTION)
+              }
             />
             <Divider />
-            <SidebarContextMenuItem
+            {/* <SidebarContextMenuItem
               label="rename guide"
               icon={PencilSquareIcon}
               handleOnClick={() =>
-                handleModalOpen(SideBarModalType.RENAME_GUIDE)}
+                handleModalOpen(SideBarModalType.RENAME_GUIDE)
+              }
             />
             <SidebarContextMenuItem
               label="remove guide"
               icon={TrashIcon}
               handleOnClick={() =>
-                handleModalOpen(SideBarModalType.DELETE_GUIDE)}
+                handleModalOpen(SideBarModalType.DELETE_GUIDE)
+              }
             />
-            <Divider />
+            <Divider /> */}
           </>
         )}
 
