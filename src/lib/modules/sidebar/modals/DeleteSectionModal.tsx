@@ -43,7 +43,7 @@ export function DeleteSectionModal({
         </div>
       </div>
       <div>
-        Are you sure you want to delete "<strong>{section.name}</strong>"?
+        Are you sure you want to delete <strong>{section.name}</strong>?
       </div>
       <div className="flex gap-x-4 items-center">
         <button

@@ -38,8 +38,8 @@ export function DeleteGuideModal({
         </div>
       </div>
       <div>
-        Are you sure you want to delete "<strong>{guide.name}</strong>" and all
-        of its sections?
+        Are you sure you want to delete <strong>{guide.name}</strong> and all of
+        its sections?
         <ul className="my-4">
           {guide.sections.map((section) => {
             return (
