@@ -9,6 +9,7 @@ import { TrashIcon, DocumentMinusIcon } from "@heroicons/react/24/outline";
 import { Guide } from "../../guides/GuideTypes";
 import { FolderMinusIcon } from "@heroicons/react/24/solid";
 import { Spinner } from "@/lib/ui/loading/Spinner";
+import { v4 as uuid } from "uuid";
 
 export function DeleteGuideModal({
   guide,
@@ -43,7 +44,7 @@ export function DeleteGuideModal({
         <ul className="my-4">
           {guide.sections.map((section) => {
             return (
-              <li className="ml-4 flex gap-x-2 items-center">
+              <li className="ml-4 flex gap-x-2 items-center" key={uuid()}>
                 <DocumentMinusIcon className="text-rose-500 w-4 h-4 shrink-0" />
                 {section.name}
               </li>
