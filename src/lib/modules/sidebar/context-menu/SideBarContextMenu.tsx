@@ -1,5 +1,10 @@
 import * as React from "react";
-import { DocumentPlusIcon, FolderPlusIcon } from "@heroicons/react/24/outline";
+import {
+  DocumentMinusIcon,
+  DocumentPlusIcon,
+  FolderPlusIcon,
+  TrashIcon,
+} from "@heroicons/react/24/outline";
 import { SidebarContextMenuItem } from "./SidebarContextMenuItem";
 import Divider from "@/lib/ui/divider/Divider";
 import { useCookbookStore } from "@/store/store";
@@ -72,14 +77,14 @@ export function SidebarContextMenu({
               handleOnClick={() =>
                 handleModalOpen(SideBarModalType.RENAME_SECTION)
               }
-            />
+            /> */}
             <SidebarContextMenuItem
               label="remove section"
               icon={DocumentMinusIcon}
               handleOnClick={() =>
                 handleModalOpen(SideBarModalType.DELETE_SECTION)
               }
-            /> */}
+            />
           </>
         )}
 
@@ -100,7 +105,7 @@ export function SidebarContextMenu({
               handleOnClick={() =>
                 handleModalOpen(SideBarModalType.RENAME_GUIDE)
               }
-            />
+            /> */}
             <SidebarContextMenuItem
               label="remove guide"
               icon={TrashIcon}
@@ -108,7 +113,7 @@ export function SidebarContextMenu({
                 handleModalOpen(SideBarModalType.DELETE_GUIDE)
               }
             />
-            <Divider /> */}
+            <Divider />
           </>
         )}
 

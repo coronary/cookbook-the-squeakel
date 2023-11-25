@@ -16,6 +16,8 @@ export const Routes = {
   // GUIDE
   GUIDES_GET_ALL: (cookbookId) => `/cookbooks/${cookbookId}/guides`,
   GUIDES_ADD: (cookbookId) => `/cookbooks/${cookbookId}/guides`,
+  GUIDES_DELETE: (cookbookId, guideId) =>
+    `/cookbooks/${cookbookId}/guides/${guideId}`,
   GUIDE_GET_FROM_NAME: (cookbookName, guideName) =>
     `/cookbookName/${cookbookName}/guideName/${guideName}`,
 
@@ -25,6 +27,8 @@ export const Routes = {
   SECTIONS_GET_ALL: (cookbookId, guideId) =>
     `/cookbooks/${cookbookId}/guides/${guideId}/sections`,
   SECTION_EDIT: (cookbookId, guideId, sectionId) =>
+    `/cookbooks/${cookbookId}/guides/${guideId}/sections/${sectionId}`,
+  SECTION_DELETE: (cookbookId, guideId, sectionId) =>
     `/cookbooks/${cookbookId}/guides/${guideId}/sections/${sectionId}`,
   SECTION_GET_FROM_NAME: (cookbookName, guideName, sectionName) =>
     `/cookbookName/${cookbookName}/guideName/${guideName}/sectionName/${sectionName}`,

@@ -14,6 +14,8 @@ import { create } from "zustand";
 export type SideBarContextMenuData = {
   position: ContextMenuPosition;
   type: SideBarContextMenuType;
+  guide?: Guide;
+  section?: Section;
 };
 
 export type SideBarModalData = {
@@ -28,8 +30,10 @@ export interface CookbookStore {
   setCookbooks: (cookbooks: Cookbook[]) => void;
   guides: Guide[];
   addSection: (section: Section) => void;
+  removeSection: (section: Section) => void;
   setGuides: (guides: Guide[]) => void;
   addGuide: (guide: Guide) => void;
+  removeGuide: (guide: Guide) => void;
   user: User | null | undefined;
   setUser: (user: User | null | undefined) => void;
   contextMenuData: null | SideBarContextMenuData;
@@ -38,6 +42,8 @@ export interface CookbookStore {
   setModal: (data: SideBarModalData) => void;
   selectedGuide: Guide | null | undefined;
   setSelectedGuide: (guide: Guide) => void;
+  selectedSection: Section | null | undefined;
+  setSelectedSection: (section: Section) => void;
   setInitialState: (
     user: User | null | undefined,
     cookbook: Cookbook,
@@ -67,11 +73,31 @@ export const useCookbookStore = create<CookbookStore>((set) => ({
       });
       return { ...state, guides };
     }),
+  removeSection: (section) => {
+    set((state) => {
+      const guides = state.guides.map((guide) => {
+        if (guide.id === section.guide) {
+          guide.sections = guide.sections.filter((s) => s.id !== section.id);
+        }
+
+        return guide;
+      });
+      return { ...state, guides };
+    });
+  },
   setGuides: () => {},
   addGuide: (guide) => {
     set((state) => {
       const guides = [...state.guides, guide];
       return { ...state, guides };
+    });
+  },
+  removeGuide: (guide) => {
+    set((state) => {
+      return {
+        ...state,
+        guides: state.guides.filter((g) => guide.id !== g.id),
+      };
     });
   },
   user: undefined,
@@ -92,6 +118,10 @@ export const useCookbookStore = create<CookbookStore>((set) => ({
   selectedGuide: null,
   setSelectedGuide: (selectedGuide) => {
     set((state) => ({ ...state, selectedGuide }));
+  },
+  selectedSection: null,
+  setSelectedSection: (selectedSection) => {
+    set((state) => ({ ...state, selectedSection }));
   },
   setInitialState: (user, cookbook, cookbooks, guides) => {
     set((state) => ({ ...state, user, cookbook, cookbooks, guides }));

@@ -17,9 +17,8 @@ export default function SectionItem({
   guide: Guide;
   section: Section;
 }) {
-  const { setContextMenuData, setSelectedGuide } = useCookbookStore(
-    (state) => state
-  );
+  const { setContextMenuData, setSelectedGuide, setSelectedSection } =
+    useCookbookStore((state) => state);
 
   return (
     <li
@@ -27,6 +26,7 @@ export default function SectionItem({
         e.stopPropagation();
         e.preventDefault();
         setSelectedGuide(guide);
+        setSelectedSection(section);
         setContextMenuData({
           position: {
             x: e.pageX,

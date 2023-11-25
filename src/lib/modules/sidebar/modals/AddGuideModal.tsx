@@ -6,6 +6,7 @@ import { useCookbookStore } from "@/store/store";
 import HttpService from "@/lib/utils/HttpService";
 import { Routes } from "@/lib/constants/ApiRoutes";
 import { FolderPlusIcon } from "@heroicons/react/24/outline";
+import { Spinner } from "@/lib/ui/loading/Spinner";
 
 export function AddGuideModal({
   cookbook,
@@ -14,15 +15,20 @@ export function AddGuideModal({
   cookbook: Cookbook;
   setOpen: (value: boolean) => void;
 }) {
+  const [loading, setLoading] = React.useState(false);
   const [guideName, setGuideName] = React.useState("");
   const { addGuide } = useCookbookStore((state) => state);
 
   function handleSetGuideName(event) {
-    const value = event.target.value.replace(/\s/g, "-").toLowerCase();
+    const value = event.target.value
+      .replace(/\s/g, "-")
+      .replace(/[^a-zA-Z0-9-]/g, "")
+      .toLowerCase();
     setGuideName(value);
   }
 
   async function handleAddGuide() {
+    setLoading(true);
     const guide = await HttpService.post(Routes.GUIDES_ADD(cookbook.id), {
       name: guideName,
     });
@@ -45,9 +51,11 @@ export function AddGuideModal({
           value={guideName}
         />
         <button
-          className="bg-teal-500 p-2 w-20 rounded text-white"
+          className="bg-teal-500 p-2 w-20 rounded text-white flex items-center justify-center"
           onClick={handleAddGuide}
+          disabled={loading || guideName.length < 1}
         >
+          {loading && <Spinner />}
           Add
         </button>
       </div>

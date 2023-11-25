@@ -6,13 +6,15 @@ import { Section } from "../sections/SectionTypes";
 import { Cookbook } from "../cookbooks/CookbookTypes";
 import { AddSectionModal } from "./modals/AddSectionModal";
 import { AddGuideModal } from "./modals/AddGuideModal";
+import { DeleteGuideModal } from "./modals/DeleteGuideModal";
+import { DeleteSectionModal } from "./modals/DeleteSectionModal";
 
 interface SideBarModalProps {
   open: boolean;
   type: SideBarModalType | null;
   cookbook: Cookbook;
   guide: Guide | null | undefined;
-  section?: Section;
+  section: Section | null | undefined;
   setOpen: (value: boolean) => void;
 }
 
@@ -32,8 +34,30 @@ export function SideBarModal({
       children = <AddSectionModal guide={guide} setOpen={setOpen} />;
       break;
     }
+
+    case SideBarModalType.DELETE_SECTION: {
+      if (guide == null || section == null) return null;
+      children = (
+        <DeleteSectionModal
+          cookbook={cookbook}
+          guide={guide}
+          section={section}
+          setOpen={setOpen}
+        />
+      );
+      break;
+    }
+
     case SideBarModalType.ADD_GUIDE: {
       children = <AddGuideModal cookbook={cookbook} setOpen={setOpen} />;
+      break;
+    }
+
+    case SideBarModalType.DELETE_GUIDE: {
+      if (guide == null) return null;
+      children = (
+        <DeleteGuideModal cookbook={cookbook} guide={guide} setOpen={setOpen} />
+      );
       break;
     }
   }

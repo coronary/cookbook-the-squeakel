@@ -40,6 +40,11 @@ class HttpService {
     const res = await axiosInstance.put(route, body);
     return res.data;
   }
+
+  async delete(route: string) {
+    const res = await axiosInstance.delete(route);
+    return res.data;
+  }
 }
 
 const httpService = new HttpService();

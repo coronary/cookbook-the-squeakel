@@ -30,6 +30,7 @@ export default function Sidebar({
     modal,
     setModal,
     selectedGuide,
+    selectedSection,
   } = useCookbookStore();
 
   React.useEffect(() => {
@@ -51,6 +52,7 @@ export default function Sidebar({
         setOpen={(isOpen) => setModal({ ...modal, open: isOpen })}
         cookbook={cookbook}
         guide={selectedGuide}
+        section={selectedSection}
       />
       {contextMenuData != null &&
         contextMenuData.position != null &&
