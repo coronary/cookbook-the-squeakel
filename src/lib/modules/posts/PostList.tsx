@@ -1,70 +1,96 @@
 "use client";
 
-import * as React from "react";
-import { Post } from "./PostTypes";
-import HttpService from "@/lib/utils/HttpService";
 import { Routes } from "@/lib/constants/ApiRoutes";
-import PostItem from "./PostItem";
-import { v4 as uuid } from "uuid";
 import useInfiniteScroll from "@/lib/ui/scroll/useInfiniteScroll";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import SkeletonPostItem from "./SkeletonPostItem";
-import { debounce } from "@/lib/utils/Debounce";
+import HttpService from "@/lib/utils/HttpService";
 import { useCookbookStore } from "@/store/store";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import * as React from "react";
+import { v4 as uuid } from "uuid";
+import PostItem from "./PostItem";
+import { Post } from "./PostTypes";
+import SkeletonPostItem from "./SkeletonPostItem";
+import { useShallow } from "zustand/react/shallow";
 
 const POST_LIMIT = 10;
 
-export default function PostList() {
-  const { cookbook } = useCookbookStore();
+export default React.memo(function PostList() {
+  const { cookbook } = useCookbookStore(
+    useShallow((state) => ({
+      cookbook: state.cookbook,
+    })),
+  );
   const [isFetching, setIsFetching] = React.useState<boolean>(true);
   const [posts, setPosts] = React.useState<Post[]>([]);
   const [searchText, setSearchText] = React.useState<string | undefined>(
-    undefined
+    undefined,
   );
   const [page, setPage] = React.useState<number>(0);
   const { loadMoreRef } = useInfiniteScroll(setPage);
-  const debouncesetIsFetching = debounce(() => setIsFetching(false));
-
-  async function fetchPosts(initialPage = page, initialPosts = posts) {
-    if (cookbook == null) {
-      return;
-    }
-
-    const newPosts = await HttpService.get(Routes.POSTS_GET_ALL(cookbook.id), {
-      options: {
-        skip: initialPage * POST_LIMIT,
-        limit: POST_LIMIT,
-      },
-      search: searchText,
-    });
-
-    setPosts([...initialPosts, ...newPosts]);
-  }
 
   React.useEffect(() => {
+    async function fetchPosts() {
+      if (cookbook == null) {
+        return;
+      }
+
+      const newPosts = await HttpService.get(
+        Routes.POSTS_GET_ALL(cookbook.id),
+        {
+          options: {
+            skip: page * POST_LIMIT,
+            limit: POST_LIMIT,
+          },
+          search: searchText,
+        },
+      );
+
+      setPosts((prev) => [...prev, ...newPosts]);
+    }
+
     if (page === 0) return;
+
     async function init() {
       await fetchPosts();
-      debouncesetIsFetching();
+      setIsFetching(false);
     }
+
     init();
-  }, [page]);
+  }, [cookbook, page, searchText]);
 
   React.useEffect(() => {
     setIsFetching(true);
     setPage(0);
     setPosts([]);
 
+    async function fetchPosts() {
+      if (cookbook == null) {
+        return;
+      }
+
+      const newPosts = await HttpService.get(
+        Routes.POSTS_GET_ALL(cookbook.id),
+        {
+          options: {
+            skip: 0,
+            limit: POST_LIMIT,
+          },
+          search: searchText,
+        },
+      );
+
+      setPosts([...newPosts]);
+    }
+
     const delayDebounceFn = setTimeout(async () => {
-      // Setting initial "avoids" a race condition with setPage and setPosts
-      await fetchPosts(0, []);
-      debouncesetIsFetching();
+      await fetchPosts();
+      setIsFetching(false);
     }, 500);
 
     return () => clearTimeout(delayDebounceFn);
   }, [searchText, cookbook]);
 
-  function handleSearchChange(event) {
+  function handleSearchChange(event: React.ChangeEvent<HTMLInputElement>) {
     const search = event.target.value === "" ? undefined : event.target.value;
     setSearchText(search);
   }
@@ -111,4 +137,4 @@ export default function PostList() {
       </div>
     </div>
   );
-}
+});

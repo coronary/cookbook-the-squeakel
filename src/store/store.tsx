@@ -15,7 +15,7 @@ interface DefaultStore {
     user: User | null | undefined,
     cookbook: Cookbook,
     cookbooks: Cookbook[],
-    guides: Guide[]
+    guides: Guide[],
   ) => void;
 }
 export type Store = DefaultStore &
@@ -27,7 +27,7 @@ export type Store = DefaultStore &
 
 export const useCookbookStore = create<Store>((set) => ({
   setInitialState: (user, cookbook, cookbooks, guides) => {
-    set((state) => ({ ...state, user, cookbook, cookbooks, guides }));
+    set((state) => ({ user, cookbook, cookbooks, guides }));
   },
   ...createCookbookStore(set),
   ...createGuideStore(set),

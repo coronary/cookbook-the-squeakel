@@ -1,20 +1,21 @@
 "use client";
-import * as React from "react";
+import { Cookbook } from "@/lib/modules/cookbooks/CookbookTypes";
+import Divider from "@/lib/ui/divider/Divider";
+import { canEdit } from "@/lib/utils/canEdit";
+import { useCookbookStore } from "@/store/store";
+import { FilmIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import Link from "next/link";
-import Divider from "@/lib/ui/divider/Divider";
-import GuideList from "./guide/GuideList";
-import { Cookbook } from "@/lib/modules/cookbooks/CookbookTypes";
-import { FilmIcon } from "@heroicons/react/24/outline";
-import { SibdeBarBanner } from "./SideBarBanner";
+import * as React from "react";
 import { Guide } from "../guides/GuideTypes";
 import {
   SidebarContextMenu,
   SideBarContextMenuType,
 } from "./context-menu/SideBarContextMenu";
+import GuideList from "./guide/GuideList";
+import { SibdeBarBanner } from "./SideBarBanner";
 import { SideBarModal } from "./SideBarModal";
-import { useCookbookStore } from "@/store/store";
-import { canEdit } from "@/lib/utils/canEdit";
+import { useShallow } from "zustand/react/shallow";
 
 export default function Sidebar({
   cookbook,
@@ -31,18 +32,29 @@ export default function Sidebar({
     setModal,
     selectedGuide,
     selectedSection,
-  } = useCookbookStore();
+  } = useCookbookStore(
+    useShallow((state) => ({
+      user: state.user,
+      contextMenuData: state.contextMenuData,
+      setContextMenuData: state.setContextMenuData,
+      modal: state.modal,
+      setModal: state.setModal,
+      selectedGuide: state.selectedGuide,
+      selectedSection: state.selectedSection,
+    })),
+  );
 
   React.useEffect(() => {
     window.addEventListener("click", handleOnClick);
+
+    function handleOnClick() {
+      setContextMenuData(null);
+    }
+
     return () => {
       window.removeEventListener("click", handleOnClick);
     };
-  }, []);
-
-  function handleOnClick() {
-    setContextMenuData(null);
-  }
+  }, [setContextMenuData]);
 
   return (
     <div className="min-h-screen shrink-0 w-64 flex flex-col overflow-hidden bg-slate-800">
@@ -107,13 +119,13 @@ export default function Sidebar({
                   href={`/${cookbook.name}/clips`}
                   className={classNames(
                     "text-indigo-200 hover:text-white hover:bg-teal-500",
-                    "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
+                    "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold",
                   )}
                 >
                   <FilmIcon
                     className={classNames(
                       "text-indigo-200 group-hover:text-white",
-                      "h-6 w-6 shrink-0"
+                      "h-6 w-6 shrink-0",
                     )}
                     aria-hidden="true"
                   />

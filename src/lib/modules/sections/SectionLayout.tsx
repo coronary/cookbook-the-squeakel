@@ -10,6 +10,7 @@ import useEditing from "@/lib/ui/editor/useEditing";
 import { Routes } from "@/lib/constants/ApiRoutes";
 import HttpService from "@/lib/utils/HttpService";
 import { useCookbookStore } from "@/store/store";
+import { useShallow } from "zustand/react/shallow";
 
 export const SectionLayout = ({
   guideUrl,
@@ -18,7 +19,13 @@ export const SectionLayout = ({
   guideUrl: string;
   sectionUrl: string;
 }) => {
-  const { cookbook, guides, user } = useCookbookStore((state) => state);
+  const { cookbook, guides, user } = useCookbookStore(
+    useShallow((state) => ({
+      cookbook: state.cookbook,
+      guides: state.guides,
+      user: state.user,
+    })),
+  );
   const guide = itemFromUrl(guides, guideUrl);
   const section = itemFromUrl(guide.sections, sectionUrl);
   const { isEditing, setIsEditing, body, setBody, canEdit } = useEditing({
@@ -39,7 +46,7 @@ export const SectionLayout = ({
       if (cookbook == null) return;
       await HttpService.put(
         Routes.SECTION_EDIT(cookbook.id, guide.id, section.id),
-        section
+        section,
       );
     } catch (err) {
       console.log(err);
@@ -66,7 +73,7 @@ export const SectionLayout = ({
               "md:pl-16": !isEditing,
               "pb-32": !isEditing,
               "pb-8": isEditing,
-            }
+            },
           )}
         >
           {isEditing && user != null ? (

@@ -17,7 +17,7 @@ export const CookbookLayout = ({
   guides,
   children,
 }: {
-  cookbookName;
+  cookbookName: string;
   cookbook: Cookbook;
   cookbooks: Cookbook[];
   guides: any;
@@ -31,23 +31,23 @@ export const CookbookLayout = ({
     setInitialState,
   } = useCookbookStore((state) => state);
 
-  async function fetchUser() {
-    try {
-      const user = await HttpService.get(Routes.LOGIN_SUCCESS);
-      setInitialState(user, cookbook, cookbooks, guides);
-    } catch (err) {
-      console.log("Error fetching user ", err);
-      setInitialState(null, cookbook, cookbooks, guides);
-    }
-  }
-
   React.useEffect(() => {
+    async function fetchUser() {
+      try {
+        const user = await HttpService.get(Routes.LOGIN_SUCCESS);
+        setInitialState(user, cookbook, cookbooks, guides);
+      } catch (err) {
+        console.log("Error fetching user ", err);
+        setInitialState(null, cookbook, cookbooks, guides);
+      }
+    }
+
     fetchUser();
-  }, []);
+  }, [cookbook, cookbooks, guides, setInitialState]);
 
   return (
     <SwipeView>
-      {(isOpen) => {
+      {(isOpen: boolean) => {
         return (
           <>
             {user !== undefined && (
@@ -66,7 +66,7 @@ export const CookbookLayout = ({
                     "transition-all absolute left-0 bg-gray-900 w-screen h-screen md:h-full md:w-full md:relative md:left-0",
                     {
                       "left-80": isOpen,
-                    }
+                    },
                   )}
                 >
                   {children}

@@ -27,7 +27,7 @@ function useOnScreen(ref) {
 
   React.useEffect(() => {
     const observer = new IntersectionObserver(([entry]) =>
-      setIntersecting(entry.isIntersecting)
+      setIntersecting(entry.isIntersecting),
     );
 
     observer.observe(ref.current);

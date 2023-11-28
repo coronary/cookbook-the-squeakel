@@ -29,13 +29,13 @@ export interface ContextMenuStore {
 
 export function createContextMenuStore(set): ContextMenuStore {
   function handleSetContextMenuData(
-    contextMenuData: SideBarContextMenuData | null
+    contextMenuData: SideBarContextMenuData | null,
   ) {
-    set((state) => ({ ...state, contextMenuData }));
+    set(() => ({ contextMenuData }));
   }
 
   function handleSetModal(modal: SideBarModalData) {
-    set((state) => ({ ...state, modal }));
+    set((state) => ({ modal }));
   }
 
   return {

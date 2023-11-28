@@ -19,7 +19,7 @@ export function createSectionStore(set): SectionStore {
 
         return guide;
       });
-      return { ...state, guides };
+      return { guides };
     });
   }
 
@@ -32,12 +32,12 @@ export function createSectionStore(set): SectionStore {
 
         return guide;
       });
-      return { ...state, guides };
+      return { guides };
     });
   }
 
   function handleSetSelectedSection(section: Section) {
-    set((state) => ({ ...state, selectedSection: section }));
+    set((state) => ({ selectedSection: section }));
   }
 
   return {

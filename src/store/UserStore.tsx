@@ -9,7 +9,7 @@ export interface UserStore {
 
 export function createUserStore(set): UserStore {
   function handleSetUser(user: User | null | undefined) {
-    set((state) => ({ ...state, user }));
+    set((state) => ({ user }));
   }
 
   return {

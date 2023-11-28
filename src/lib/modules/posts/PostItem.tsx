@@ -1,19 +1,19 @@
 "use client";
 
-import * as React from "react";
-import { Post } from "./PostTypes";
-import { Markdown } from "@/lib/ui/markdown/Markdown";
 import { Routes } from "@/lib/constants/ApiRoutes";
-import TagItem from "./TagItem";
-import { v4 as uuid } from "uuid";
-import styles from "./PostItem.module.css";
-import classNames from "classnames";
 import { Editor } from "@/lib/ui/editor/editor";
 import useEditing from "@/lib/ui/editor/useEditing";
-import PostItemToolbar from "./PostItemToolbar";
+import { Markdown } from "@/lib/ui/markdown/Markdown";
 import HttpService from "@/lib/utils/HttpService";
+import classNames from "classnames";
+import * as React from "react";
+import { v4 as uuid } from "uuid";
+import styles from "./PostItem.module.css";
+import PostItemToolbar from "./PostItemToolbar";
+import { Post } from "./PostTypes";
+import TagItem from "./TagItem";
 
-export default function PostItem({
+export default React.memo(function PostItem({
   post,
   backupImg,
   cookbookId,
@@ -44,7 +44,7 @@ export default function PostItem({
           className={classNames("inline-block rounded-full", styles.avatar)}
           src={Routes.DISCORD_AVATAR(
             postUser.discordId,
-            postUser.discordAvatar
+            postUser.discordAvatar,
           )}
           alt=""
           onError={(e: any) => {
@@ -76,4 +76,4 @@ export default function PostItem({
       </div>
     </div>
   );
-}
+});

@@ -56,7 +56,7 @@ export function SidebarContextMenu({
         type: type,
       });
     }
-  }, [y]);
+  }, [setContextMenuData, type, x, y]);
 
   function handleModalOpen(modalType: SideBarModalType) {
     setModal({ open: true, type: modalType });

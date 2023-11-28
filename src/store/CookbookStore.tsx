@@ -11,11 +11,11 @@ export interface CookbookStore {
 
 export function createCookbookStore(set): CookbookStore {
   function handleSetCookbook(cookbook: Cookbook) {
-    set((state) => ({ ...state, cookbook }));
+    set((state) => ({ cookbook }));
   }
 
   function handleSetCookbooks(cookbooks: Cookbook[]) {
-    set((state) => ({ ...state, cookbooks }));
+    set((state) => ({ cookbooks }));
   }
 
   return {

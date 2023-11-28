@@ -14,21 +14,20 @@ export function createGuideStore(set): GuideStore {
   function handleAddGuide(guide: Guide) {
     set((state) => {
       const guides = [...state.guides, guide];
-      return { ...state, guides };
+      return { guides };
     });
   }
 
   function handleRemoveGuide(guide: Guide) {
     set((state) => {
       return {
-        ...state,
         guides: state.guides.filter((g) => guide.id !== g.id),
       };
     });
   }
 
   function handleSetSelectedGuide(guide: Guide) {
-    set((state) => ({ ...state, selectedGuide: guide }));
+    set((state) => ({ selectedGuide: guide }));
   }
 
   return {
