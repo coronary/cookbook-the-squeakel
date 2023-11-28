@@ -1,6 +1,7 @@
 "use client";
 
 import { Cookbook } from "@/lib/modules/cookbooks/CookbookTypes";
+import { SetStore } from "./store";
 
 export interface CookbookStore {
   cookbook: Cookbook | null | undefined;
@@ -9,13 +10,13 @@ export interface CookbookStore {
   setCookbooks: (cookbooks: Cookbook[]) => void;
 }
 
-export function createCookbookStore(set): CookbookStore {
+export function createCookbookStore(set: SetStore): CookbookStore {
   function handleSetCookbook(cookbook: Cookbook) {
-    set((state) => ({ cookbook }));
+    set(() => ({ cookbook }));
   }
 
   function handleSetCookbooks(cookbooks: Cookbook[]) {
-    set((state) => ({ cookbooks }));
+    set(() => ({ cookbooks }));
   }
 
   return {

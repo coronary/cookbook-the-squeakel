@@ -1,6 +1,7 @@
 "use client";
 
 import { Guide } from "@/lib/modules/guides/GuideTypes";
+import { SetStore, Store } from "./store";
 
 export interface GuideStore {
   guides: Guide[];
@@ -10,9 +11,9 @@ export interface GuideStore {
   setSelectedGuide: (guide: Guide) => void;
 }
 
-export function createGuideStore(set): GuideStore {
+export function createGuideStore(set: SetStore): GuideStore {
   function handleAddGuide(guide: Guide) {
-    set((state) => {
+    set((state: Store) => {
       const guides = [...state.guides, guide];
       return { guides };
     });
@@ -27,7 +28,7 @@ export function createGuideStore(set): GuideStore {
   }
 
   function handleSetSelectedGuide(guide: Guide) {
-    set((state) => ({ selectedGuide: guide }));
+    set(() => ({ selectedGuide: guide }));
   }
 
   return {

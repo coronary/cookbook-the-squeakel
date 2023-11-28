@@ -1,6 +1,7 @@
 "use client";
 
 import { Section } from "@/lib/modules/sections/SectionTypes";
+import { SetStore, Store } from "./store";
 
 export interface SectionStore {
   selectedSection: Section | null | undefined;
@@ -9,9 +10,9 @@ export interface SectionStore {
   setSelectedSection: (section: Section) => void;
 }
 
-export function createSectionStore(set): SectionStore {
+export function createSectionStore(set: SetStore): SectionStore {
   function handleAddSection(section: Section) {
-    set((state) => {
+    set((state: Store) => {
       const guides = state.guides.map((guide) => {
         if (guide.id === section.guide) {
           guide.sections = [...guide.sections, section];
@@ -24,7 +25,7 @@ export function createSectionStore(set): SectionStore {
   }
 
   function handleRemoveSection(section: Section) {
-    set((state) => {
+    set((state: Store) => {
       const guides = state.guides.map((guide) => {
         if (guide.id === section.guide) {
           guide.sections = guide.sections.filter((s) => s.id !== section.id);
@@ -37,7 +38,7 @@ export function createSectionStore(set): SectionStore {
   }
 
   function handleSetSelectedSection(section: Section) {
-    set((state) => ({ selectedSection: section }));
+    set(() => ({ selectedSection: section }));
   }
 
   return {

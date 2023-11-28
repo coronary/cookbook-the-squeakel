@@ -7,6 +7,7 @@ import {
   SideBarContextMenuType,
   SideBarModalType,
 } from "@/lib/modules/sidebar/context-menu/SideBarContextMenu";
+import { SetStore } from "./store";
 
 export type SideBarContextMenuData = {
   position: ContextMenuPosition;
@@ -27,7 +28,7 @@ export interface ContextMenuStore {
   setModal: (data: SideBarModalData) => void;
 }
 
-export function createContextMenuStore(set): ContextMenuStore {
+export function createContextMenuStore(set: SetStore): ContextMenuStore {
   function handleSetContextMenuData(
     contextMenuData: SideBarContextMenuData | null,
   ) {
@@ -35,7 +36,7 @@ export function createContextMenuStore(set): ContextMenuStore {
   }
 
   function handleSetModal(modal: SideBarModalData) {
-    set((state) => ({ modal }));
+    set(() => ({ modal }));
   }
 
   return {

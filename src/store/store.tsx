@@ -25,9 +25,14 @@ export type Store = DefaultStore &
   UserStore &
   ContextMenuStore;
 
+export type SetStore = (
+  partial: Store | Partial<Store> | ((state: Store) => Store | Partial<Store>),
+  replace?: boolean | undefined,
+) => void;
+
 export const useCookbookStore = create<Store>((set) => ({
   setInitialState: (user, cookbook, cookbooks, guides) => {
-    set((state) => ({ user, cookbook, cookbooks, guides }));
+    set(() => ({ user, cookbook, cookbooks, guides }));
   },
   ...createCookbookStore(set),
   ...createGuideStore(set),
