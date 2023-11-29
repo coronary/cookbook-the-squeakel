@@ -134,21 +134,6 @@ export default function Sidebar({
               </li>
               <Divider />
               <GuideList cookbook={cookbook} guides={guides} />
-              {user != null && user.id === "64b7390b4d03170014b60c51" && (
-                <>
-                  <Divider />
-                  <div className="text-white flex flex-col">
-                    <div> username: {user.discordUsername}</div>
-                    <div> userId: {user.id}</div>
-                    <div className="flex flex-col">
-                      roles:
-                      {Object.keys(cookbook.roles).map((id) => (
-                        <div key={id}>{id}</div>
-                      ))}
-                    </div>
-                  </div>
-                </>
-              )}
             </ul>
           </li>
         </ul>
