@@ -9,6 +9,7 @@ import { CookbookStore, createCookbookStore } from "./CookbookStore";
 import { SectionStore, createSectionStore } from "./SectionStore";
 import { UserStore, createUserStore } from "./UserStore";
 import { ContextMenuStore, createContextMenuStore } from "./ContextMenuStore";
+import { PostStore, createPostStore } from "./PostStore";
 
 interface DefaultStore {
   setInitialState: (
@@ -22,6 +23,7 @@ export type Store = DefaultStore &
   CookbookStore &
   GuideStore &
   SectionStore &
+  PostStore &
   UserStore &
   ContextMenuStore;
 
@@ -37,6 +39,7 @@ export const useCookbookStore = create<Store>((set) => ({
   ...createCookbookStore(set),
   ...createGuideStore(set),
   ...createSectionStore(set),
+  ...createPostStore(set),
   ...createUserStore(set),
   ...createContextMenuStore(set),
 }));
