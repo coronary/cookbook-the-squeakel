@@ -29,13 +29,13 @@ export function DeleteSectionModal({
     setLoading(true);
     removeSection(section);
     await HttpService.delete(
-      Routes.SECTION_DELETE(cookbook.id, section.guide, section.id)
+      Routes.SECTION_DELETE(cookbook.id, section.guide, section.id),
     );
     setOpen(false);
   }
 
   return (
-    <div className="flex flex-col gap-y-4">
+    <div className="flex flex-col gap-y-4 p-6">
       <div className="flex gap-x-2 items-center">
         <DocumentMinusIcon className="text-rose-500 w-6 h-6 shrink-0" />
         <div className="text-2xl font-bold overflow-x-hidden whitespace-nowrap text-ellipsis">

@@ -31,7 +31,7 @@ export function DeleteGuideModal({
   }
 
   return (
-    <div className="flex flex-col gap-y-4">
+    <div className="flex flex-col gap-y-4 p-6">
       <div className="flex gap-x-2 items-center">
         <FolderMinusIcon className="text-rose-500 w-6 h-6 shrink-0" />
         <div className="text-2xl font-bold overflow-x-hidden whitespace-nowrap text-ellipsis">

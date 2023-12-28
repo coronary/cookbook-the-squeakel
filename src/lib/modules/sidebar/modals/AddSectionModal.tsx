@@ -31,14 +31,14 @@ export function AddSectionModal({
     setLoading(true);
     const section = await HttpService.post(
       Routes.SECTIONS_ADD(guide.cookbook, guide.id),
-      { name: sectionName }
+      { name: sectionName },
     );
     addSection(section);
     setOpen(false);
   }
 
   return (
-    <div className="flex flex-col gap-y-4">
+    <div className="flex flex-col gap-y-4 p-6">
       <div className="flex gap-x-2 items-center">
         <DocumentPlusIcon className="w-6 h-6 shrink-0" />
         <div className="text-2xl font-bold overflow-x-hidden whitespace-nowrap text-ellipsis">
