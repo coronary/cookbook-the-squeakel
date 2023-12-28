@@ -3,6 +3,8 @@ import Image from "next/image";
 import Logo from "../../../app/logo.svg";
 import Link from "next/link";
 import classNames from "classnames";
+import { User } from "../users/UserTypes";
+import { Routes } from "@/lib/constants/ApiRoutes";
 
 const CookbookList = ({
   cookbookName,
@@ -39,9 +41,11 @@ const CookbookList = ({
 export default function Sidebar({
   cookbookName,
   cookbooks,
+  user,
 }: {
   cookbookName: string;
   cookbooks: Cookbook[];
+  user: User | null | undefined;
 }) {
   return (
     <div className="h-screen min-w-fit flex flex-col overflow-y-auto bg-slate-900 justify-center items-center py-3 px-1">
@@ -54,7 +58,7 @@ export default function Sidebar({
           height={0}
         />
       </div>
-      <nav className="flex flex-1 flex-col px-4 pb-4">
+      <nav className="flex flex-1 flex-col px-4 pb-4 relative">
         <ul role="list" className="flex flex-1 flex-col gap-y-7">
           <li>
             <ul role="list" className="-mx-2 space-y-1">
@@ -62,6 +66,20 @@ export default function Sidebar({
             </ul>
           </li>
         </ul>
+        {user != null && (
+          <Image
+            className={classNames(
+              "absolute bottom-0 left-0 right-0 mx-auto w-10 h-10 my-4 rounded",
+            )}
+            src={Routes.DISCORD_AVATAR(
+              user.discordId,
+              user.discordAvatar,
+            )}
+            alt="Cookbook.gg"
+            width={64}
+            height={64}
+          />
+        )}
       </nav>
     </div>
   );
