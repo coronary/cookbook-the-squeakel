@@ -1,12 +1,15 @@
-"use client";
-
 import * as React from "react";
 import { Cookbook } from "../../cookbooks/CookbookTypes";
-import { useCookbookStore } from "@/store/store";
-import HttpService from "@/lib/utils/HttpService";
-import { Routes } from "@/lib/constants/ApiRoutes";
 import { FolderPlusIcon } from "@heroicons/react/24/outline";
 import { Spinner } from "@/lib/ui/loading/Spinner";
+import { addGuide } from "../../guides/GuideActionCreators";
+
+function formatGuideName(name: string): string {
+  return name
+    .replace(/\s/g, "-")
+    .replace(/[^a-zA-Z0-9-]/g, "")
+    .toLowerCase();
+}
 
 export function AddGuideModal({
   cookbook,
@@ -17,27 +20,20 @@ export function AddGuideModal({
 }) {
   const [loading, setLoading] = React.useState(false);
   const [guideName, setGuideName] = React.useState("");
-  const { addGuide } = useCookbookStore((state) => state);
 
-  function handleSetGuideName(event) {
-    const value = event.target.value
-      .replace(/\s/g, "-")
-      .replace(/[^a-zA-Z0-9-]/g, "")
-      .toLowerCase();
-    setGuideName(value);
+  function handleSetGuideName(event: React.ChangeEvent<HTMLInputElement>) {
+    const value = event.target.value;
+    setGuideName(formatGuideName(value));
   }
 
   async function handleAddGuide() {
     setLoading(true);
-    const guide = await HttpService.post(Routes.GUIDES_ADD(cookbook.id), {
-      name: guideName,
-    });
-    addGuide(guide);
+    await addGuide(cookbook.id, guideName);
     setOpen(false);
   }
 
   return (
-    <div className="flex flex-col gap-y-4">
+    <div className="flex flex-col gap-y-4 p-6">
       <div className="flex gap-x-2 items-center">
         <FolderPlusIcon className="w-6 h-6 shrink-0" />
         <div className="text-2xl font-bold overflow-x-hidden whitespace-nowrap text-ellipsis">
