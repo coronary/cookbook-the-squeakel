@@ -10,6 +10,39 @@ import HttpService from "@/lib/utils/HttpService";
 import { Routes } from "@/lib/constants/ApiRoutes";
 import { useCookbookStore } from "@/store/store";
 
+const COOKBOOK_ORDER = [
+  "captain-falcon",
+  "fox",
+  "donkey-kong",
+  "mewtwo",
+  "sheik",
+  "peach",
+  "samus",
+  "dr-mario",
+  "game-and-watch",
+];
+
+function sortCookbooks(cookbooks: Cookbook[]): Cookbook[] {
+  const sortedCookbooks: Cookbook[] = [];
+
+  // Push ordered cookbooks first
+  for (const cookbookName of COOKBOOK_ORDER) {
+    const cookbook = cookbooks.find((c) => c.name === cookbookName);
+    if (cookbook != null) {
+      sortedCookbooks.push(cookbook);
+    }
+  }
+
+  // Push the rest to the end
+  for (const cookbook of cookbooks) {
+    if (!sortedCookbooks.find((c) => c.name === cookbook.name)) {
+      sortedCookbooks.push(cookbook);
+    }
+  }
+
+  return sortedCookbooks;
+}
+
 export const CookbookLayout = ({
   cookbookName,
   cookbook,
@@ -35,7 +68,7 @@ export const CookbookLayout = ({
     async function fetchUser() {
       try {
         const user = await HttpService.get(Routes.LOGIN_SUCCESS);
-        setInitialState(user, cookbook, cookbooks, guides);
+        setInitialState(user, cookbook, sortCookbooks(cookbooks), guides);
       } catch (err) {
         console.log("Error fetching user ", err);
         setInitialState(null, cookbook, cookbooks, guides);
