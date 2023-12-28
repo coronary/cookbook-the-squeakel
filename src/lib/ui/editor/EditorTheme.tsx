@@ -8,7 +8,7 @@ const base00 = "#111827",
   base02 = "#586e75",
   base03 = "#657b83",
   base04 = "#839496",
-  base05 = "#93a1a1",
+  base05 = "#abadd2",
   base06 = "#eee8d5",
   base07 = "#fdf6e3",
   base_red = "#bd93f9",
@@ -21,7 +21,7 @@ const base00 = "#111827",
   base_magenta = "#ff79c6";
 
 const invalid = "#d30102",
-  stone = base04,
+  stone = "#abadd2",
   darkBackground = "#00252f",
   highlightBackground = "#1a1e35",
   background = base00,
@@ -99,7 +99,7 @@ export const cookbookTheme = EditorView.theme(
       },
     },
   },
-  { dark: true }
+  { dark: true },
 );
 
 /// The highlighting style for code in the Solarized Dark theme.
