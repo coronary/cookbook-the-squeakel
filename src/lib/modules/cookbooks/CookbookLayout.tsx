@@ -1,11 +1,11 @@
 "use client";
 
-import { SwipeView } from "@/lib/ui/SwipeView/SwipeView";
 import * as React from "react";
+import classNames from "classnames";
+import { SwipeView } from "@/lib/ui/SwipeView/SwipeView";
 import { Cookbook } from "./CookbookTypes";
 import CookbookSidebar from "../sidebar/CookbookSidebar";
 import Sidebar from "../sidebar/Sidebar";
-import classNames from "classnames";
 import HttpService from "@/lib/utils/HttpService";
 import { Routes } from "@/lib/constants/ApiRoutes";
 import { useCookbookStore } from "@/store/store";
@@ -88,6 +88,7 @@ export const CookbookLayout = ({
                 <CookbookSidebar
                   cookbookName={cookbookName}
                   cookbooks={storeCookbooks}
+                  user={user}
                 />
 
                 {storeCookbook && (
