@@ -8,8 +8,10 @@ import { AddSectionModal } from "./modals/AddSectionModal";
 import { AddGuideModal } from "./modals/AddGuideModal";
 import { DeleteGuideModal } from "./modals/DeleteGuideModal";
 import { DeleteSectionModal } from "./modals/DeleteSectionModal";
+import { User } from "../users/UserTypes";
 
 interface SideBarModalProps {
+  user: User | null | undefined;
   open: boolean;
   type: SideBarModalType | null;
   cookbook: Cookbook;
@@ -25,6 +27,7 @@ export function SideBarModal({
   cookbook,
   guide,
   section,
+  user,
 }: SideBarModalProps) {
   let children;
 
