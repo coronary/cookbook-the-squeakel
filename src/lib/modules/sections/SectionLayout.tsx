@@ -11,6 +11,8 @@ import { Routes } from "@/lib/constants/ApiRoutes";
 import HttpService from "@/lib/utils/HttpService";
 import { useCookbookStore } from "@/store/store";
 import { useShallow } from "zustand/react/shallow";
+import Image from "next/image";
+import { User } from "../users/UserTypes";
 
 export const SectionLayout = ({
   guideUrl,
@@ -76,11 +78,44 @@ export const SectionLayout = ({
             },
           )}
         >
-          {isEditing && user != null ? (
-            <Editor body={section.body} onChange={handleSectionEdit} />
-          ) : (
-            <Markdown body={section?.body} />
+          {!isEditing && (
+            <div className="flex items-center gap-x-4">
+              <div>
+                <div className="text-slate-200 text-xl capitalize">
+                  {section.name.replace(/-/g, " ")}
+                </div>
+                <div className="inline-flex items-center gap-4 text-slate-400 text-sm my-2">
+                  {section.authors.map((author: User) => (
+                    <div
+                      className="flex gap-x-2 items-center text-slate-300"
+                      key={author.id}
+                    >
+                      <Image
+                        className={classNames(
+                          "w-6 h-6 rounded-full",
+                        )}
+                        src={Routes.DISCORD_AVATAR(
+                          author.discordId,
+                          author.discordAvatar,
+                        )}
+                        alt="Cookbook.gg"
+                        width={64}
+                        height={64}
+                      />
+                      {author.discordUsername}
+                    </div>
+                  ))}
+                  {new Date(section.creationDate).toLocaleString("en-us", {
+                    month: "short",
+                    year: "numeric",
+                  })}
+                </div>
+              </div>
+            </div>
           )}
+          {isEditing && user != null
+            ? <Editor body={section.body} onChange={handleSectionEdit} />
+            : <Markdown body={section?.body} />}
         </div>
       </>
     </div>
