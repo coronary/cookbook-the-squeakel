@@ -66,7 +66,7 @@ export default function Sidebar({
             </ul>
           </li>
         </ul>
-        {user != null && (
+        {user != null && typeof user !== "string" && (
           <Image
             className={classNames(
               "absolute bottom-0 left-0 right-0 mx-auto w-10 h-10 my-4 rounded",

@@ -65,16 +65,17 @@ export default function Sidebar({
         cookbook={cookbook}
         guide={selectedGuide}
         section={selectedSection}
+        user={user}
       />
       {contextMenuData != null &&
         contextMenuData.position != null &&
         contextMenuData.type != null &&
         canEdit(user, cookbook) && (
-          <SidebarContextMenu
-            type={contextMenuData.type}
-            position={contextMenuData.position}
-          />
-        )}
+        <SidebarContextMenu
+          type={contextMenuData.type}
+          position={contextMenuData.position}
+        />
+      )}
       <div className="flex items-center p-2">
         {cookbook.bannerUrl != null && (
           <SibdeBarBanner bannerUrl={cookbook.bannerUrl} name={cookbook.name} />
@@ -96,7 +97,8 @@ export default function Sidebar({
         <ul role="list" className="flex flex-1 flex-col gap-y-7">
           <li>
             <ul role="list" className="-mx-2 space-y-1">
-              {/* <li>
+              {
+                /* <li>
                 <Link
                   href={`/${cookbook.name}`}
                   className={classNames(
@@ -113,7 +115,8 @@ export default function Sidebar({
                   />
                   Home
                 </Link>
-              </li> */}
+              </li> */
+              }
               <li>
                 <Link
                   href={`/${cookbook.name}/clips`}
