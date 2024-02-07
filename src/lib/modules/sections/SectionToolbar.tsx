@@ -20,7 +20,7 @@ export default function SectionToolbar(
   return (
     <div
       className={classNames(styles.toolbar, "py-4 flex gap-x-4 px-6", {
-        "pl-16": !isEditing,
+        "md:pl-16": !isEditing,
         "border-b border-slate-800": isEditing,
       })}
     >

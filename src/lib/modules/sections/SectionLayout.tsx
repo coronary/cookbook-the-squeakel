@@ -71,7 +71,8 @@ export const SectionLayout = ({
           className={classNames(
             "scrollbar overflow-y-scroll flex flex-1 flex-col overflow-x-hidden",
             {
-              "p-8": !isEditing && !canEdit,
+              "p-8": !isEditing,
+              "pt-0": !isEditing && canEdit,
               "md:pl-16": !isEditing,
               "pb-32": !isEditing,
               "pb-8": isEditing,
