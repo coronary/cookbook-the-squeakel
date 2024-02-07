@@ -56,7 +56,7 @@ export const GifElement = ({ src }) => {
   }
 
   return (
-    <div className={"flex my-2 max-w-3xl"} ref={ref}>
+    <div className={"flex my-2 w-full max-w-3xl"} ref={ref}>
       <div className={"flex w-full relative aspect-video"}>
         {src != null && (
           <>
