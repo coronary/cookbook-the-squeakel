@@ -4,4 +4,5 @@ export interface Cookbook {
   bannerUrl: string;
   avatarUrl: string;
   roles: { [key: string]: string };
+  features: Record<string, boolean>;
 }

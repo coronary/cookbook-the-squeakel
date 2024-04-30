@@ -3,7 +3,7 @@ import { Cookbook } from "@/lib/modules/cookbooks/CookbookTypes";
 import Divider from "@/lib/ui/divider/Divider";
 import { canEdit } from "@/lib/utils/canEdit";
 import { useCookbookStore } from "@/store/store";
-import { FilmIcon } from "@heroicons/react/24/outline";
+import { AcademicCapIcon, FilmIcon } from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import Link from "next/link";
 import * as React from "react";
@@ -71,11 +71,11 @@ export default function Sidebar({
         contextMenuData.position != null &&
         contextMenuData.type != null &&
         canEdit(user, cookbook) && (
-        <SidebarContextMenu
-          type={contextMenuData.type}
-          position={contextMenuData.position}
-        />
-      )}
+          <SidebarContextMenu
+            type={contextMenuData.type}
+            position={contextMenuData.position}
+          />
+        )}
       <div className="flex items-center p-2">
         {cookbook.bannerUrl != null && (
           <SibdeBarBanner bannerUrl={cookbook.bannerUrl} name={cookbook.name} />
@@ -97,8 +97,7 @@ export default function Sidebar({
         <ul role="list" className="flex flex-1 flex-col gap-y-7">
           <li>
             <ul role="list" className="-mx-2 space-y-1">
-              {
-                /* <li>
+              {/* <li>
                 <Link
                   href={`/${cookbook.name}`}
                   className={classNames(
@@ -115,9 +114,26 @@ export default function Sidebar({
                   />
                   Home
                 </Link>
-              </li> */
-              }
+              </li> */}
               <li>
+                {cookbook.features?.coaching && (
+                  <Link
+                    href={`/${cookbook.name}/coaching`}
+                    className={classNames(
+                      "text-indigo-200 hover:text-white hover:bg-teal-500",
+                      "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold",
+                    )}
+                  >
+                    <AcademicCapIcon
+                      className={classNames(
+                        "text-indigo-200 group-hover:text-white",
+                        "h-6 w-6 shrink-0",
+                      )}
+                      aria-hidden="true"
+                    />
+                    Coaching
+                  </Link>
+                )}
                 <Link
                   href={`/${cookbook.name}/clips`}
                   className={classNames(

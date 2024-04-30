@@ -1,3 +1,4 @@
+"use client";
 import { useShallow } from "zustand/react/shallow";
 import { Store, useCookbookStore } from "./store";
 

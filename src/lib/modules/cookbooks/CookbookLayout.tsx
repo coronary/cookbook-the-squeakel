@@ -9,6 +9,7 @@ import Sidebar from "../sidebar/Sidebar";
 import HttpService from "@/lib/utils/HttpService";
 import { Routes } from "@/lib/constants/ApiRoutes";
 import { useCookbookStore } from "@/store/store";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const COOKBOOK_ORDER = [
   "captain-falcon",
@@ -21,6 +22,8 @@ const COOKBOOK_ORDER = [
   "dr-mario",
   "game-and-watch",
 ];
+
+const queryClient = new QueryClient();
 
 function sortCookbooks(cookbooks: Cookbook[]): Cookbook[] {
   const sortedCookbooks: Cookbook[] = [];
@@ -79,37 +82,39 @@ export const CookbookLayout = ({
   }, [cookbook, cookbooks, guides, setInitialState]);
 
   return (
-    <SwipeView>
-      {(isOpen: boolean) => {
-        return (
-          <>
-            {user !== undefined && (
-              <>
-                <CookbookSidebar
-                  cookbookName={cookbookName}
-                  cookbooks={storeCookbooks}
-                  user={user}
-                />
+    <QueryClientProvider client={queryClient}>
+      <SwipeView>
+        {(isOpen: boolean) => {
+          return (
+            <>
+              {user !== undefined && (
+                <>
+                  <CookbookSidebar
+                    cookbookName={cookbookName}
+                    cookbooks={storeCookbooks}
+                    user={user}
+                  />
 
-                {storeCookbook && (
-                  <Sidebar guides={storeGuides} cookbook={storeCookbook} />
-                )}
-
-                <div
-                  className={classNames(
-                    "transition-all absolute left-0 bg-gray-900 w-screen h-screen md:h-full md:w-full md:relative md:left-0",
-                    {
-                      "left-80": isOpen,
-                    },
+                  {storeCookbook && (
+                    <Sidebar guides={storeGuides} cookbook={storeCookbook} />
                   )}
-                >
-                  {children}
-                </div>
-              </>
-            )}
-          </>
-        );
-      }}
-    </SwipeView>
+
+                  <div
+                    className={classNames(
+                      "transition-all absolute left-0 bg-gray-900 w-screen h-screen md:h-full md:w-full md:relative md:left-0",
+                      {
+                        "left-80": isOpen,
+                      },
+                    )}
+                  >
+                    {children}
+                  </div>
+                </>
+              )}
+            </>
+          );
+        }}
+      </SwipeView>
+    </QueryClientProvider>
   );
 };
