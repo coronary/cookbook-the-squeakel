@@ -10,7 +10,7 @@ export function Card({ children, className }: CardProps) {
   return (
     <div
       className={classNames(
-        "relative flex space-x-3 rounded-lg border border-slate-600 bg-slate-800 px-6 py-5 shadow-sm hover:border-slate-400",
+        "relative flex rounded-lg border border-slate-600 bg-slate-800 px-6 py-5 shadow-sm hover:border-slate-400",
         className,
       )}
     >

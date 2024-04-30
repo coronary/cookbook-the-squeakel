@@ -1,7 +1,6 @@
 "use client";
 import * as React from "react";
 import { useStateFromStore } from "@/store/useStateFromStore";
-import { useGetCoaches } from "./useGetCoaches";
 import { Card } from "@/lib/ui/card/Card";
 import { Routes } from "@/lib/constants/ApiRoutes";
 import classNames from "classnames";
@@ -10,14 +9,13 @@ import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 
 export function CoachList() {
   const { cookbook } = useStateFromStore((state) => state);
-  const { data } = useGetCoaches();
-  const users = data ?? [];
+  const users = cookbook?.coaches ?? [];
 
   if (!cookbook?.features?.coaching) return <></>;
 
   return (
     <div className="h-full flex flex-col">
-      <div className="p-6 h-full overflow-y-auto scrollbar grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div className="p-6 overflow-y-auto scrollbar grid grid-cols-1 gap-4 sm:grid-cols-2">
         {users.map((user) => (
           <Card
             key={user.discordId}
