@@ -19,7 +19,10 @@ export function CoachList() {
     <div className="h-full flex flex-col">
       <div className="p-6 h-full overflow-y-auto scrollbar grid grid-cols-1 gap-4 sm:grid-cols-2">
         {users.map((user) => (
-          <Card className="flex flex-col items-start text-indigo-200 gap-y-4">
+          <Card
+            key={user.discordId}
+            className="flex flex-col items-start text-indigo-200 gap-y-4"
+          >
             <div className="flex items-center gap-4 text-indigo-100 font-semibold text-lg">
               <img
                 className={classNames(
