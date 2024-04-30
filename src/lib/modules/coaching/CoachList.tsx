@@ -38,7 +38,7 @@ export function CoachList() {
             </div>
 
             <div>
-              Hi, I'm coach coach. Please book sessions so I can earn free
+              Hi, I&apos;m coach coach. Please book sessions so I can earn free
               money.
             </div>
             <button className="flex justify-center items-center gap-x-2 w-full rounded bg-teal-500 px-2 py-3 text-sm font-semibold text-white shadow-sm hover:bg-teal-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500">
