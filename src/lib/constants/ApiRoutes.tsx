@@ -12,6 +12,7 @@ export const Routes = {
   // COOKBOOK
   COOKBOOK_GET_ALL: `/cookbooks`,
   COOKBOOK_GET_FROM_NAME: (cookbookName) => `/cookbookName/${cookbookName}`,
+  COOKBOOK_EDIT: (cookbookId) => `/cookbooks/${cookbookId}`,
 
   // GUIDE
   GUIDES_GET_ALL: (cookbookId) => `/cookbooks/${cookbookId}/guides`,

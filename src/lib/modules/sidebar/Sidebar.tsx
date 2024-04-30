@@ -3,7 +3,11 @@ import { Cookbook } from "@/lib/modules/cookbooks/CookbookTypes";
 import Divider from "@/lib/ui/divider/Divider";
 import { canEdit } from "@/lib/utils/canEdit";
 import { useCookbookStore } from "@/store/store";
-import { AcademicCapIcon, FilmIcon } from "@heroicons/react/24/outline";
+import {
+  AcademicCapIcon,
+  FilmIcon,
+  HomeIcon,
+} from "@heroicons/react/24/outline";
 import classNames from "classnames";
 import Link from "next/link";
 import * as React from "react";
@@ -43,6 +47,10 @@ export default function Sidebar({
       selectedSection: state.selectedSection,
     })),
   );
+
+  const showHomeIcon =
+    (cookbook.about != null && cookbook.about.length > 0) ||
+    canEdit(user, cookbook);
 
   React.useEffect(() => {
     window.addEventListener("click", handleOnClick);
@@ -97,24 +105,26 @@ export default function Sidebar({
         <ul role="list" className="flex flex-1 flex-col gap-y-7">
           <li>
             <ul role="list" className="-mx-2 space-y-1">
-              {/* <li>
-                <Link
-                  href={`/${cookbook.name}`}
-                  className={classNames(
-                    "text-indigo-200 hover:text-white hover:bg-teal-500",
-                    "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold"
-                  )}
-                >
-                  <HomeIcon
+              <li>
+                {showHomeIcon && (
+                  <Link
+                    href={`/${cookbook.name}/about`}
                     className={classNames(
-                      "text-indigo-200 group-hover:text-white",
-                      "h-6 w-6 shrink-0"
+                      "text-indigo-200 hover:text-white hover:bg-teal-500",
+                      "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold",
                     )}
-                    aria-hidden="true"
-                  />
-                  Home
-                </Link>
-              </li> */}
+                  >
+                    <HomeIcon
+                      className={classNames(
+                        "text-indigo-200 group-hover:text-white",
+                        "h-6 w-6 shrink-0",
+                      )}
+                      aria-hidden="true"
+                    />
+                    Home
+                  </Link>
+                )}
+              </li>
               <li>
                 {cookbook.features?.coaching && (
                   <Link
