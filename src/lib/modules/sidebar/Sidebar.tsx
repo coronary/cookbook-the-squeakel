@@ -64,12 +64,14 @@ export default function Sidebar({
     };
   }, [setContextMenuData]);
 
+	const setOpen = (isOpen: boolean): void => setModal({ ...modal, open: isOpen });
+
   return (
     <div className="min-h-screen shrink-0 w-64 flex flex-col overflow-hidden bg-slate-800">
       <SideBarModal
         type={modal.type}
         open={modal.open}
-        setOpen={(isOpen) => setModal({ ...modal, open: isOpen })}
+        setOpen={setOpen}
         cookbook={cookbook}
         guide={selectedGuide}
         section={selectedSection}

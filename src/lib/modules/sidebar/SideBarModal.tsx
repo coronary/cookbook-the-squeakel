@@ -27,9 +27,8 @@ export function SideBarModal({
   cookbook,
   guide,
   section,
-  user,
 }: SideBarModalProps) {
-  let children;
+  let children: React.ReactNode;
 
   switch (type) {
     case SideBarModalType.ADD_SECTION: {
